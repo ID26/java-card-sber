@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>All cards</title>
+</head>
+<body>
+<div th:each="card : ${cards}">
+    <br/>
+    <a th:href="@{/cards/{id}(id=${card.getId()})}"
+       th:text="${card.getId() + '. ' + card.getOwnerId() + ' '
+       + card.getCardAssociationName() + ' ' + card.getCardNumber() + ' '
+       + card.getExpiryDate()}">card</a>
+<!--    <br/>-->
+<!--    <a th:text="${T(Math).pow(9, 2)}">Math pow</a>-->
+</div>
+
+<br/> <!--break-->
+<hr/> <!--horizontal line-->
+
+<a href="/cards/newCard">CREATE NEW CARD</a>
+
+</body>
+</html>

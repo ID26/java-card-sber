@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Client</title>
+</head>
+<body>
+<table>
+    <tbody>
+    <tr>
+        <td>Id: </td> <td text="" th:text="${client.getId()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Full name: </td>
+        <td th:text="${client.person.getSurName() + ' ' + client.person.getGivenName() + ' '
+        +client.person.getPatronymic()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Gender: </td> <td th:text="${client.person.getSex()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Date of birth: </td> <td th:text="${client.person.getDateOfBirth()}">VALUE</td>
+    </tr>
+    <tr th:each="phone : ${client.phones}">
+        <td>Phone: </td> <td th:text="${phone.getPhoneNumber()}">VALUE</td>
+    </tr>
+    <tr th:each="address : ${client.addresses}">
+        <td>Address: </td> <td th:text="${address.getPostCode() + ', ' + address.getCity() + ', '
+    + address.getStreet() + ', ' + address.getBuilding() + ', '
+       + address.getExtension() + ', ' + address.getApartment()}">VALUE</td>
+<!--        <td>-->
+<!--            <form th:action="@{/address/new(${client})}"> &lt;!&ndash;(id=${client.getId()})&ndash;&gt;-->
+<!--                <input type="submit" value="ADD ADDRESS"/>-->
+<!--            </form>-->
+<!--        </td>-->
+    </tr>
+    <tr th:each="email : ${client.emails}">
+        <td>Email: </td> <td th:text="${email.getEmailAddress()}">VALUE</td>
+    </tr>
+    <tr>
+        <td><br/></td>
+
+    </tr>
+    <tr>
+        <td>
+        <form th:action="@{/clients/{id}/edit(id=${client.getId()})}">
+            <input type="submit" value="EDIT"/>
+        </form>
+        </td>
+        <td>
+        <form th:method="DELETE" th:action="@{/clients/{id}(id=${client.getId()})}">
+            <input type="submit" value="DELETE"/>
+        </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<hr/>
+<p>Card Schedule: </p>
+<div th:each="card : ${cards}">
+    <br/>
+    <a th:href="@{/cards/{id}(id=${card.getId()})}"
+       th:text="${card.getId() + '. ' + card.getCardAssociationName() + ' '
+       + card.getCardNumber() + ' ' + card.getExpiryDate()}">card</a>
+</div>
+<br/>
+<a th:href="@{/cards/newCard/{id}(id=${client.getId()})}">CREATE NEW CARD</a>
+<!--<a href="/cards/newCard">CREATE NEW CARD</a>-->
+<br/>
+<hr/>
+
+</body>
+</html>

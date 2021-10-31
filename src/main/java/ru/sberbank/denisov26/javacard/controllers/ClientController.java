@@ -37,4 +37,9 @@ public class ClientController {
     public RestResponse responseMethod(String name) {
        return new RestResponse("Hello my dear friend, ", name);
     }
+
+    @GetMapping(value = "/somebody1"/*, produces = MediaType.APPLICATION_JSON_VALUE*/)
+    public String responseMethod(String name, String name1) {
+        return "webapp/WEB-INF/views/MyPage";
+    }
 }

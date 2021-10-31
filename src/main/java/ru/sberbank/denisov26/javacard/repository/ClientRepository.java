@@ -7,5 +7,4 @@ import ru.sberbank.denisov26.javacard.models.client.Client;
 import java.util.List;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
-//    List<Client> findClient
 }

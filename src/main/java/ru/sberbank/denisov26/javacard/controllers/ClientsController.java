@@ -1,61 +1,56 @@
 package ru.sberbank.denisov26.javacard.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.sberbank.denisov26.javacard.models.client.Client;
-import ru.sberbank.denisov26.javacard.repository.CardRepository;
-import ru.sberbank.denisov26.javacard.repository.ClientRepository;
+import ru.sberbank.denisov26.javacard.models.client.*;
+import ru.sberbank.denisov26.javacard.services.ClientsService;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-//@RestController
-//@RequestMapping("/clients")
+@Controller
+@RequestMapping("/clients")
 class ClientsController {
-    private final ClientRepository clientDao;
-    private final CardRepository cardDao;
 
-//    clientDaoJdbcTemplate cardDaoJdbcTemplate
-//    @Autowired
-//    public ClientsController(@Qualifier("clientDaoJdbcTemplate") ClientDao clientDao,
-//                             @Qualifier("cardDaoJdbcTemplate") CardDao cardDao) {
-//        this.clientDao = clientDao;
-//        this.cardDao = cardDao;
-//    }
+    private final ClientsService clientsService;
 
     @Autowired
-    public ClientsController(ClientRepository clientDao, CardRepository cardDao) {
-        this.clientDao = clientDao;
-        this.cardDao = cardDao;
+    public ClientsController(ClientsService clientsService) {
+        this.clientsService = clientsService;
     }
 
     @GetMapping()
     public String index(Model model) {
-        //        получим всех людей из DAO и передадим на отображение в представление
-        model.addAttribute("clients", clientDao.findAll());
-        return "clients/index";
+        model.addAttribute("clients", clientsService.findAll());
+        return "/clients/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
         //        мы получим одного человека из DAO и передадим на отображение в представление
-        model.addAttribute("client", clientDao.findById(id));
+        model.addAttribute("client", clientsService.findById(id));
 //        model.addAttribute("client", clientDao.findAllCardByClientId(id));
 //        model.addAttribute("cards", cardDao.findById(id));
         return "clients/showClient";
     }
 
-//    форма для создания нового клиента
+    //    форма для создания нового клиента
     @GetMapping("/new")
-    public String newClient(@ModelAttribute("client" ) Client client/*Model model*/) {
+    public String newClient(@ModelAttribute("client" ) Client client /*Model model*/) {
 //        этот вариант если в параметрах передаем модель
 //        model.addAttribute("client", new Client());
+        for (int i = 0; i < 2 ; i++) {
+            client.getPhones().add(new Phone());
+        }
         return "clients/new";
     }
 
-//    из пост запроса берем данные и добавляем нового клиента в базу данных
+    //    из пост запроса берем данные и добавляем нового клиента в базу данных
     @PostMapping
     public String create(@ModelAttribute("client") @Valid Client client,
                          BindingResult bindingResult) {
@@ -64,30 +59,31 @@ class ClientsController {
         }
 
 //        сохраняем в базу данных
-        clientDao.save(client);
+        clientsService.save(client);
 //        перенаправляем на страницу следующим способом
         return "redirect:/clients";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
-//        model.addAttribute("client", clientDao.show(id));
+        model.addAttribute("client", clientsService.findById(id));
         return "clients/edit";
     }
 
-    @PatchMapping("/{id}")
+//    @PatchMapping("/{id}")
+    @PostMapping("/{id}")
     public String update(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult,
                          @PathVariable("id") Long id) {
         if (bindingResult.hasErrors()) {
             return "clients/edit";
         }
-//        clientDao.update(id, client);
+        clientsService.update(id, client);
         return "redirect:/clients";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") Long id) {
-//        clientDao.delete(id);
+        clientsService.delete(id);
         return "redirect:/clients";
     }
 

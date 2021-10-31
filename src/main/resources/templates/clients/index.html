@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>All clients</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Full Name</th>
+        <th>Date of Birth</th>
+        <th>Gender</th>
+        <th>Into</th>
+    </tr>
+    </thead>
+    <tbody>
+    <div th:each="client : ${clients}">
+        <tr>
+            <td th:text="${client.getId()}">Id</td>
+            <td  th:text="${client.getPerson().getSurName + ' '
+       + client.getPerson().getGivenName() + ' ' + client.getPerson().getPatronymic()}">Full name</td>
+            <td th:text="${client.getPerson().getDateOfBirth()}">Birth date</td>
+            <td th:text="${client.getPerson().getSex()}">Gender</td>
+            <td>
+                <form th:method="GET" th:action="@{/clients/{id}(id=${client.getId()})}">
+                    <input type="submit" value="INTO"/>
+                </form>
+            </td>
+            <!--            <a th:href="@{/clients/{id}(id=${client.getId()})}"-->
+            <!--               th:text="${client.getId() + '. ' + client.getPerson().getSurName + ' '-->
+            <!--       + client.getPerson().getGivenName() + ' ' + client.getPerson().getPatronymic() + ' '-->
+            <!--       + client.getPerson().getDateOfBirth()+ ' '-->
+            <!--       + client.getPerson().getSex()}">user</a>-->
+        </tr>
+    </div>
+    </tbody>
+</table>
+<br/> <!--break-->
+<hr/> <!--horizontal line-->
+<!--ссылка для перехода в форму создания нового клиента-->
+<a href="/clients/new">CREATE NEW CLIENT</a>
+</body>
+</html>
