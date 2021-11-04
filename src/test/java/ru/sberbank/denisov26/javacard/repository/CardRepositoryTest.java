@@ -16,21 +16,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 //@RunWith(SpringRunner.class)
-@SpringBootTest
+//@SpringBootTest
 class CardRepositoryTest {
 
-    @Autowired
+//    @Autowired
     CardRepository cardRepository;
 
-    @Test
+//    @Test
     public void findAllCardsTodayExpiryDate() throws Exception {
-        LocalDate date = LocalDate.of(2021, 10, 19);
-        List<Card> cards = cardRepository.findAllByExpiryDate(date);
-        cards.forEach(System.out::println);
-        assertThat(cards).hasSize(2);
-
-        assertEquals(date, cards.get(0).getExpiryDate());
-        assertEquals(date, cards.get(cards.size() - 1).getExpiryDate());
+//        LocalDate date = LocalDate.of(2021, 10, 19);
+//        List<Card> cards = cardRepository.findAllByExpiryDate(date);
+//        cards.forEach(System.out::println);
+//        assertThat(cards).hasSize(2);
+//
+//        assertEquals(date, cards.get(0).getExpiryDate());
+//        assertEquals(date, cards.get(cards.size() - 1).getExpiryDate());
     }
 
 }

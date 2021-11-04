@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New Address</title>
+</head>
+<body>
+<!--method - с каким HTTP методом будет отправляться эта форма POST
+атрибут action -> адрес URL на который пойдем передавать данные (все адреса в thymeleaf пишуться в @{})
+object - передаем ему объект класса card-->
+
+<form th:method="POST" th:action="@{/address/new}" th:object="${address}">
+    <label for="city">City: </label>
+    <input type="text" th:field="*{city}" id="city"/>
+    <div style="color:red" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">City error</div>
+    <br/>
+    <label for="postCode">Post Code: </label>
+    <input type="text" th:field="*{postCode}" id="postCode"/>
+    <div style="color:red" th:if="${#fields.hasErrors('postCode')}" th:errors="*{postCode}">PostCode error</div>
+    <br/>
+    <label for="street">Street Name: </label>
+    <input type="text" th:field="*{street}" id="street"/>
+    <div style="color:red" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">Street error</div>
+    <br/>
+    <label for="building">Building: </label>
+    <input type="text" th:field="*{building}" id="building"/>
+    <div style="color:red" th:if="${#fields.hasErrors('building')}" th:errors="*{building}">Building error</div>
+    <br/>
+    <label for="extension">Extension: </label>
+    <input type="text" th:field="*{extension}" id="extension"/>
+    <div style="color:red" th:if="${#fields.hasErrors('extension')}" th:errors="*{extension}">Extension error</div>
+    <br/>
+    <label for="apartment">Apartment: </label>
+    <input type="text" th:field="*{apartment}" id="apartment"/>
+    <div style="color:red" th:if="${#fields.hasErrors('apartment')}" th:errors="*{apartment}">Apartment error</div>
+    <br/>
+<!--    <label for="validFrom">Valid From: </label>-->
+<!--    <input type="text" th:field="*{validFrom}" id="validFrom"/>-->
+<!--    <div style="color:red" th:if="${#fields.hasErrors('validFrom')}" th:errors="*{validFrom}">Valid From error</div>-->
+<!--    <br/>-->
+<!--    <label for="expiryDate">Expiry Date: </label>-->
+<!--    <input type="text" th:field="*{expiryDate}" id="expiryDate"/>-->
+<!--    <div style="color:red" th:if="${#fields.hasErrors('expiryDate')}" th:errors="*{expiryDate}">Expiry Date error</div>-->
+<!--    <br/>-->
+<!--    <label for="cardVerificationCode">Card Verification Code: </label>-->
+<!--    <input type="text" th:field="*{cardVerificationCode}" id="cardVerificationCode"/>-->
+<!--    <div style="color:red" th:if="${#fields.hasErrors('cardVerificationCode')}" th:errors="*{cardVerificationCode}">Card Verification Code error</div>-->
+<!--    <br/>-->
+<!--    <label for="dailyWithdrawalLimit">Daily Withdrawal Limit: </label>-->
+<!--    <input type="text" th:field="*{dailyWithdrawalLimit}" id="dailyWithdrawalLimit"/>-->
+<!--    <div style="color:red" th:if="${#fields.hasErrors('dailyWithdrawalLimit')}" th:errors="*{dailyWithdrawalLimit}">Daily Withdrawal Limit error</div>-->
+<!--    <br/>-->
+<!--    <label for="balance">Balance: </label>-->
+<!--    <input type="text" th:field="*{balance}" id="balance"/>-->
+<!--    <div style="color:red" th:if="${#fields.hasErrors('balance')}" th:errors="*{balance}">Balance error</div>-->
+<!--    <br/>-->
+    <!--    <p th:text="${card.getOwnerId()}">VALUE</p>-->
+    <!--    <p th:text="${card.getCardNumber()}">VALUE</p>-->
+    <!--    <p th:text="${card.getNameOnCard()}">VALUE</p>-->
+    <!--    <p th:text="${card.getBillingAddress()}">VALUE</p>-->
+    <!--    <p th:text="${card.getValidFrom()}">VALUE</p>-->
+    <!--    <p th:text="${card.getExpiryDate()}">VALUE</p>-->
+    <!--    <p th:text="${card.getCardVerificationCode()}">VALUE</p>-->
+    <input type="submit" value="CREATE"/>
+</form>
+
+</body>

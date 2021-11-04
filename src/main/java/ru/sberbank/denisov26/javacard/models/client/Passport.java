@@ -1,6 +1,8 @@
 package ru.sberbank.denisov26.javacard.models.client;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -8,9 +10,11 @@ import java.time.LocalDate;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Passport {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     private String passportSeries;
     private String passportNumber;
@@ -25,4 +29,11 @@ public class Passport {
             CascadeType.PERSIST, CascadeType.REFRESH } /*cascade = CascadeType.ALL*/, optional = false)
     private Client client;
 
+    public Passport(String passportSeries, String passportNumber, LocalDate issueDate, String issueDepartment, String codDepartment) {
+        this.passportSeries = passportSeries;
+        this.passportNumber = passportNumber;
+        this.issueDate = issueDate;
+        this.issueDepartment = issueDepartment;
+        this.codDepartment = codDepartment;
+    }
 }

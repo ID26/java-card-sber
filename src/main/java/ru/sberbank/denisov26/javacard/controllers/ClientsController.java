@@ -5,16 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.sberbank.denisov26.javacard.models.client.*;
+import ru.sberbank.denisov26.javacard.exceptions.ClientNotFoundException;
+import ru.sberbank.denisov26.javacard.models.client.Client;
+import ru.sberbank.denisov26.javacard.models.client.Phone;
 import ru.sberbank.denisov26.javacard.services.ClientsService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
-@RequestMapping("/clients")
+@RequestMapping("clients")
 class ClientsController {
 
     private final ClientsService clientsService;
@@ -33,10 +32,14 @@ class ClientsController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
         //        мы получим одного человека из DAO и передадим на отображение в представление
-        model.addAttribute("client", clientsService.findById(id));
+        try {
+            model.addAttribute("client", clientsService.findById(id));
+        } catch (ClientNotFoundException e) {
+            System.err.println(e);
+        }
 //        model.addAttribute("client", clientDao.findAllCardByClientId(id));
 //        model.addAttribute("cards", cardDao.findById(id));
-        return "clients/showClient";
+        return "clients/show";
     }
 
     //    форма для создания нового клиента
@@ -66,7 +69,11 @@ class ClientsController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("client", clientsService.findById(id));
+        try {
+            model.addAttribute("client", clientsService.findById(id));
+        } catch (ClientNotFoundException e) {
+            System.err.println(e);
+        }
         return "clients/edit";
     }
 
@@ -81,7 +88,7 @@ class ClientsController {
         return "redirect:/clients";
     }
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long id) {
         clientsService.delete(id);
         return "redirect:/clients";

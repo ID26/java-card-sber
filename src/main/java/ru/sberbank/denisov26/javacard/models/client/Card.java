@@ -1,24 +1,33 @@
 package ru.sberbank.denisov26.javacard.models.client;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Random;
+
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Card {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
     //    @NotEmpty(message = "Card Association Name can't be empty!")
-    private String cardAssociationName;
+    @Enumerated(EnumType.STRING)
+    private CardAssociation cardAssociationName;
     private String cardNumber;
     private String nameOnCard;
     private String billingAddress;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate validFrom;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate expiryDate;
     private String cardVerificationCode;
     //    @Positive(message = "Daily Withdrawal Limit can't be negative!")
@@ -29,17 +38,4 @@ public class Card {
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "client_id")
     private Client client;
-
-
-//    public static Card generateCard(Client client) {
-//        Card card = new Card();
-//        card.setCardAssociationName("Visa");
-//        card.setCardNumber("000000000000" + String.valueOf(new Random().nextInt(8999) + 1000));
-//        card.setNameOnCard(String.format("%s %s".toUpperCase(), client.getPerson().getGivenName(), client.getPerson().getSurName()));
-//        card.setBillingAddress(client.getAddresses().stream().findAny().orElse(null).toString());
-//        card.setValidFrom(LocalDate.now());
-//        card.setExpiryDate(card.getValidFrom().plusYears(3));
-//        card.setCardVerificationCode(String.valueOf(new Random().nextInt(899) + 100));
-//        return card;
-//    }
 }

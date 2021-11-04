@@ -1,7 +1,5 @@
 package ru.sberbank.denisov26.javacard.models.client;
 
-import lombok.Data;
-
 public enum Sex {
     MALE("MALE"),
     FEMALE("FEMALE");
