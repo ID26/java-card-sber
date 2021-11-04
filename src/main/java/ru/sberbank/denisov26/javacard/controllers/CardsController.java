@@ -28,18 +28,18 @@ public class CardsController {
     }
 
 
-//    @GetMapping()
-//    public String index(Model model) {
-//        model.addAttribute("cards", cardsService.findAll());
-//        return "/clients/index";
-//    }
-//
+    @GetMapping()
+    public String index(Model model) {
+        model.addAttribute("cards", cardsService.findAll());
+        return "/cards/index";
+    }
+
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
             try {
                 Card card = cardsService.findById(id);
                 model.addAttribute("card", card);
-                model.addAttribute("clientId", 23);
+                model.addAttribute("clientId", card.getClient().getId());
             } catch (CardNotFoundException e) {
                 System.err.println(e);
             }
@@ -76,42 +76,28 @@ public class CardsController {
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
         try {
-            model.addAttribute("client", cardsService.findById(id));
+            Card card = cardsService.findById(id);
+            model.addAttribute("card", card);
         } catch (CardNotFoundException e) {
             System.err.println(e);
         }
         return "cards/edit";
     }
-//
-//    //    @PatchMapping("/{id}")
-//    @PostMapping("/{id}")
-//    public String update(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult,
-//                         @PathVariable("id") Long id) {
-//        if (bindingResult.hasErrors()) {
-//            return "clients/edit";
-//        }
-//        cardsService.update(id, client);
-//        return "redirect:/clients";
-//    }
-//
+
+    @PostMapping("/{id}")
+    public String update(@ModelAttribute("card") @Valid Card card, BindingResult bindingResult,
+                         @PathVariable("id") Long id) {
+        if (bindingResult.hasErrors()) {
+            return "clients/edit";
+        }
+        cardsService.update(id, card);
+        return String.format("redirect:/cards/%d", id);
+    }
+
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long id, @RequestParam("clientId") Long clientId) {
         System.out.println(clientId);
         cardsService.delete(id);
         return String.format("redirect:/clients/%d", clientId);
     }
-
-//    @GetMapping("/newCard/{id}")
-//    public String newCard(@PathVariable("id") Long id, @ModelAttribute("card") Card card) {
-//        Client client = clientDao.show(id);
-//        card.setOwner(client.getId());
-//        card.setBillingAddress(client.getAddress());
-//        card.setNameOnCard(String.format("%s %s", client.getGivenName(), client.getSurName()).toUpperCase());
-//        card.setCardNumber("000000000000" + String.valueOf(new Random().nextInt(8999) + 1000));
-//        card.setCardVerificationCode(String.valueOf(new Random().nextInt(899) + 100));
-//        card.setValidFrom(LocalDate.now());
-//        card.setValidFrom(card.getValidFrom().plusYears(3));
-//
-//        return "cards/newCard";
-//    }
 }

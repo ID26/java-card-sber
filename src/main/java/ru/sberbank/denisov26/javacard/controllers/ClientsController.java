@@ -31,29 +31,22 @@ class ClientsController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
-        //        мы получим одного человека из DAO и передадим на отображение в представление
         try {
             model.addAttribute("client", clientsService.findById(id));
         } catch (ClientNotFoundException e) {
             System.err.println(e);
         }
-//        model.addAttribute("client", clientDao.findAllCardByClientId(id));
-//        model.addAttribute("cards", cardDao.findById(id));
         return "clients/show";
     }
 
-    //    форма для создания нового клиента
     @GetMapping("/new")
     public String newClient(@ModelAttribute("client" ) Client client /*Model model*/) {
-//        этот вариант если в параметрах передаем модель
-//        model.addAttribute("client", new Client());
         for (int i = 0; i < 2 ; i++) {
             client.getPhones().add(new Phone());
         }
         return "clients/new";
     }
 
-    //    из пост запроса берем данные и добавляем нового клиента в базу данных
     @PostMapping
     public String create(@ModelAttribute("client") @Valid Client client,
                          BindingResult bindingResult) {
@@ -61,9 +54,7 @@ class ClientsController {
             return "clients/new"; //если форма имеет не валидные значения
         }
 
-//        сохраняем в базу данных
         clientsService.save(client);
-//        перенаправляем на страницу следующим способом
         return "redirect:/clients";
     }
 
@@ -77,7 +68,6 @@ class ClientsController {
         return "clients/edit";
     }
 
-//    @PatchMapping("/{id}")
     @PostMapping("/{id}")
     public String update(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult,
                          @PathVariable("id") Long id) {
@@ -93,18 +83,4 @@ class ClientsController {
         clientsService.delete(id);
         return "redirect:/clients";
     }
-
-//    @GetMapping("/newCard/{id}")
-//    public String newCard(@PathVariable("id") Long id, @ModelAttribute("card") Card card) {
-//        Client client = clientDao.show(id);
-//        card.setOwner(client.getId());
-//        card.setBillingAddress(client.getAddress());
-//        card.setNameOnCard(String.format("%s %s", client.getGivenName(), client.getSurName()).toUpperCase());
-//        card.setCardNumber("000000000000" + String.valueOf(new Random().nextInt(8999) + 1000));
-//        card.setCardVerificationCode(String.valueOf(new Random().nextInt(899) + 100));
-//        card.setValidFrom(LocalDate.now());
-//        card.setValidFrom(card.getValidFrom().plusYears(3));
-//
-//        return "cards/newCard";
-//    }
 }

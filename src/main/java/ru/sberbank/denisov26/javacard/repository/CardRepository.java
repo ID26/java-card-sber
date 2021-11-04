@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.sberbank.denisov26.javacard.models.client.Card;
+import ru.sberbank.denisov26.javacard.models.client.CardAssociation;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +18,7 @@ public interface CardRepository extends JpaRepository<Card, Long> {
             "c.billingAddress = ?5, c.validFrom = ?6, c.expiryDate = ?7," +
             "c.cardVerificationCode = ?8, c.dailyWithdrawalLimit = ?9," +
             "c.balance = ?10 where c.id = ?1")
-    void setCardById(Long id, String cardAssociationName, String cardNumber, String nameOnCard,
+    void setCardById(Long id, CardAssociation cardAssociationName, String cardNumber, String nameOnCard,
                      String billingAddress, LocalDate validFrom, LocalDate expiryDate,
                      String cardVerificationCode, String dailyWithdrawalLimit, String balance);
 

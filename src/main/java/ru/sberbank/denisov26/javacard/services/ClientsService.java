@@ -48,6 +48,7 @@ public class ClientsService {
     public void update(Long id, Client client) {
         try {
             Client updateClient = findById(id);
+            if (updateClient == null) return;
             personRepository.setPersonById(updateClient.getPerson().getId(), client.getPerson().getSurName(), client.getPerson().getGivenName(),
                     client.getPerson().getPatronymic(), client.getPerson().getDateOfBirth(), client.getPerson().getSex());
             passportRepository.setPassportById(updateClient.getPassport().getId(), client.getPassport().getPassportSeries(),
@@ -70,17 +71,19 @@ public class ClientsService {
                             client.getAddresses().get(i).getExtension(),
                             client.getAddresses().get(i).getApartment()));
 
-            IntStream.range(0, client.getCards().size()).forEach(i ->
-                    cardRepository.setCardById(updateClient.getCards().get(i).getId(),
-                            client.getCards().get(i).getCardAssociationName().name(),
-                            client.getCards().get(i).getCardNumber(),
-                            client.getCards().get(i).getNameOnCard(),
-                            client.getCards().get(i).getBillingAddress(),
-                            client.getCards().get(i).getValidFrom(),
-                            client.getCards().get(i).getExpiryDate(),
-                            client.getCards().get(i).getCardVerificationCode(),
-                            client.getCards().get(i).getDailyWithdrawalLimit(),
-                            client.getCards().get(i).getBalance()));
+            if (client.getCards() != null) {
+                IntStream.range(0, client.getCards().size()).forEach(i ->
+                        cardRepository.setCardById(updateClient.getCards().get(i).getId(),
+                                client.getCards().get(i).getCardAssociationName(),
+                                client.getCards().get(i).getCardNumber(),
+                                client.getCards().get(i).getNameOnCard(),
+                                client.getCards().get(i).getBillingAddress(),
+                                client.getCards().get(i).getValidFrom(),
+                                client.getCards().get(i).getExpiryDate(),
+                                client.getCards().get(i).getCardVerificationCode(),
+                                client.getCards().get(i).getDailyWithdrawalLimit(),
+                                client.getCards().get(i).getBalance()));
+            }
 
         } catch (ClientNotFoundException e) {
             System.err.println(e);
