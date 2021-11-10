@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.sberbank.denisov26.javacard.exceptions.ClientNotFoundException;
 import ru.sberbank.denisov26.javacard.models.client.Client;
-import ru.sberbank.denisov26.javacard.models.client.Phone;
 import ru.sberbank.denisov26.javacard.services.ClientsService;
 
 import javax.validation.Valid;
@@ -40,22 +39,19 @@ class ClientsController {
     }
 
     @GetMapping("/new")
-    public String newClient(@ModelAttribute("client" ) Client client /*Model model*/) {
-        for (int i = 0; i < 2 ; i++) {
-            client.getPhones().add(new Phone());
-        }
+    public String newClient(@ModelAttribute("client" ) Client client) {
         return "clients/new";
     }
 
     @PostMapping
-    public String create(@ModelAttribute("client") @Valid Client client,
-                         BindingResult bindingResult) {
+    public String create(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "clients/new"; //если форма имеет не валидные значения
+//            по какой-то причине сюда не попадает
+            return "/clients/new"; //если форма имеет не валидные значения
         }
 
-        clientsService.save(client);
-        return "redirect:/clients";
+            Client result = clientsService.save(client);
+            return "redirect:/clients/" + result.getId();
     }
 
     @GetMapping("/{id}/edit")

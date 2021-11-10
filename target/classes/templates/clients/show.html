@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Client</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<table class="table table-dark">
+    <thead>
+    <th scope="col">Client info: </th>
+    <th scope="col">Data: </th></thead>
+    <tbody>
+    <tr>
+        <td>Id: </td> <td text="" th:text="${client.getId()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Full name: </td>
+        <td th:text="${client.person.getSurName() + ' ' + client.person.getGivenName() + ' '
+        +client.person.getPatronymic()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Gender: </td> <td th:text="${client.person.getSex()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Date of birth: </td> <td th:text="${client.person.getDateOfBirth()}">VALUE</td>
+    </tr>
+    <tr th:each="phone : ${client.phones}">
+        <td>Phone: </td> <td th:text="${phone.getPhoneNumber()}">VALUE</td>
+    </tr>
+    <tr th:each="address : ${client.addresses}">
+        <td>Address: </td> <td th:text="${address.getPostCode() + ', ' + address.getCity() + ', '
+    + address.getStreet() + ', ' + address.getBuilding() + ', '
+       + address.getExtension() + ', ' + address.getApartment()}">VALUE</td>
+    </tr>
+    <tr th:each="email : ${client.emails}">
+        <td>Email: </td> <td th:text="${email.getEmailAddress()}">VALUE</td>
+    </tr>
+    </tbody>
+    <tbottom>
+        <td>
+            <form th:action="@{/clients/{id}/edit(id=${client.getId()})}">
+                <input type="submit" value="EDIT"/>
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/clients/{id}/delete(id=${client.getId()})}">
+                <input type="submit" value="DELETE"/>
+            </form>
+        </td>
+    </tbottom>
+</table>
+<table class="table table-dark">
+    <thead>
+    <th scope="col">Card Schedule: </th>
+    <th scope="col"></th>
+    </thead>
+    <tbody>
+    <tr th:each="card : ${client.cards}">
+                   <td> <a th:href="@{/cards/{id}(id=${card.getId()})}"
+                       th:text="${card.getCardAssociationName() + ' '
+               + card.getCardNumber() + ' ' + card.getExpiryDate()}">card</a> </td><td></td>
+    </tr>
+    </tbody>
+    <tbottom>
+        <th scope="col"><a th:href="@{/cards/new/{id}(id=${client.getId()})}">CREATE NEW CARD</a></th>
+        <th scope="col">
+            <div style="float: right">
+                <a href="templates.clients.index.html" th:href="@{/clients}">Back Step</a>
+            </div>
+        </th>
+    </tbottom>
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

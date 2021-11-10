@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Card</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<table class="table table-dark">
+    <thead>
+    <th scope="col">Client info: </th>
+    <th scope="col">Data: </th></thead>
+    <tbody>
+    <tr>
+        <td>Id: </td> <td text="" th:text="${card.getId()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Card Association Name: </td> <td th:text="${card.getCardAssociationName()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Card Number: </td>
+        <td th:text="${card.getCardNumber()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Name On Card: </td> <td th:text="${card.getNameOnCard()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Billing Address: </td> <td th:text="${card.getBillingAddress()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Valid From: </td> <td th:text="${card.getValidFrom()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Expiry Date: </td> <td th:text="${card.getExpiryDate()}">VALUE</td>
+    </tr>
+<!--    эта информация секретная, не должна быть нигде видима-->
+    <tr>
+        <td>CVD: </td> <td th:text="${card.getCardVerificationCode()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Daily Withdrawal Limit: </td> <td th:text="${card.getDailyWithdrawalLimit()}">VALUE</td>
+    </tr>
+    <tr>
+        <td>Balance: </td> <td th:text="${card.getBalance()}">VALUE</td>
+    </tr>
+    </tbody>
+    <tbottom>
+        <tr>
+        <td>
+            <form th:action="@{/cards/{id}/edit(id=${card.getId()})}">
+                <input type="submit" value="EDIT"/>
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/cards/{id}/delete (id=${card.getId()}, clientId=${clientId})}">
+                <input type="submit" value="DELETE"/>
+            </form>
+        </td>
+        </tr>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">
+                <div style="float: right">
+                    <a href="templates.clients.show.html" th:href="@{/clients/{id} (id=${clientId})}">Back Step</a>
+                </div>
+            </th>
+        </tr>
+    </tbottom>
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

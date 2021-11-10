@@ -7,6 +7,7 @@ import ru.sberbank.denisov26.javacard.exceptions.CardNotFoundException;
 import ru.sberbank.denisov26.javacard.models.client.Card;
 import ru.sberbank.denisov26.javacard.repository.CardRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -31,14 +32,22 @@ public class CardsService {
         cardRepository.deleteById(id);
     }
 
+    public List<String> findAllByExpiryDate(LocalDate date){
+        return cardRepository.findAllByExpiryDate(date);
+    }
+    public List<Card> findAllCardsByExpiryDate(LocalDate date){
+        return cardRepository.findAllCardsByExpiryDate(date);
+    }
+
+
     @Transactional
     public void update(Long id, Card card) {
-        try {
-            Card cardForUpdate = findById(id);
-            if (cardForUpdate == null) return;
-        } catch (CardNotFoundException e) {
-            System.err.println(e);
-        }
+//        try {
+//            Card cardForUpdate = findById(id);
+//            if (cardForUpdate == null) return;
+//        } catch (CardNotFoundException e) {
+//            System.err.println(e);
+//        }
         cardRepository.setCardById(id, card.getCardAssociationName(), card.getCardNumber(),
                 card.getNameOnCard(), card.getBillingAddress(), card.getValidFrom(), card.getExpiryDate(),
                 card.getCardVerificationCode(), card.getDailyWithdrawalLimit(), card.getBalance());

@@ -15,4 +15,6 @@ public interface PassportRepository extends JpaRepository<Passport, Long> {
             "p.issueDepartment = ?5, p.codDepartment = ?6 where p.id = ?1")
     void setPassportById(Long id, String passportSeries, String passportNumber, LocalDate issueDate,
                          String issueDepartment, String codDepartment);
+
+    Passport findPassportByPassportSeriesAndPassportNumber(String passportSeries, String passportNumber);
 }

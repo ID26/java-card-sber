@@ -84,7 +84,7 @@ object - передаем ему объект класса клиент-->
         <tr>
             <td><label for="email1">Email #1: </label></td>
             <td><input type="text" th:field="*{emails[0].emailAddress}" id="email1"/></td>
-            <div style="color:red" th:if="${#fields.hasErrors('emails[0].emailAddress')}" th:errors="*{emails[0].emailAddress}">Telephone error</div>
+<!--            <td><div style="color:red" th:if="${#fields.hasErrors('emails[0].emailAddress')}" th:errors="*{emails[0].emailAddress}">Telephone error</div><td>-->
         </tr>
         <tr>
             <td><label for="email2">Email #2: </label></td>

@@ -20,7 +20,7 @@ public class EmailAddress {
     @Email(message = "Email don't valid!")
     private String emailAddress;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "client_id")
     private Client client;
 

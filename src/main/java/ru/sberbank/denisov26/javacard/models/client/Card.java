@@ -3,10 +3,10 @@ package ru.sberbank.denisov26.javacard.models.client;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 
 
@@ -30,9 +30,9 @@ public class Card {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate expiryDate;
     private String cardVerificationCode;
-    //    @Positive(message = "Daily Withdrawal Limit can't be negative!")
+//    @Positive(message = "Daily Withdrawal Limit can't be negative!")
     private String dailyWithdrawalLimit;
-    //    @Positive(message = "Balance can't be negative!")
+//    @Positive(message = "Balance can't be negative!")
     private String balance;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})

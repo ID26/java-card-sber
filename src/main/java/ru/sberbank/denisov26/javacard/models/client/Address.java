@@ -22,8 +22,7 @@ public class Address {
     private String extension;
     private String apartment;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "client_id")
     private Client client;
 
@@ -34,11 +33,5 @@ public class Address {
         this.building = building;
         this.extension = extension;
         this.apartment = apartment;
-    }
-
-    @Override
-    public String toString() {
-        return "\n" + postCode + ", " + city + ", " + street + ", "
-                + building + ", " + extension + ", " + apartment;
     }
 }
