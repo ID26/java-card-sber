@@ -1,5 +1,6 @@
 package ru.sberbank.denisov26.javacard.services;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 @Service
+//@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ClientsService {
     private final ClientRepository clientRepository;
     private final PersonRepository personRepository;
@@ -42,7 +44,8 @@ public class ClientsService {
     }
 
     public Client findById(Long id) throws ClientNotFoundException {
-        return clientRepository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client not found!!!"));
+        Client client = clientRepository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client not found!!!"));
+        return client;
     }
 
     public Client save(Client client) {

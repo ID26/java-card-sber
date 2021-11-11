@@ -1,5 +1,6 @@
 package ru.sberbank.denisov26.javacard.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,17 +11,19 @@ import ru.sberbank.denisov26.javacard.models.client.Client;
 import ru.sberbank.denisov26.javacard.services.ClientsService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 @Controller
 @RequestMapping("clients")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 class ClientsController {
 
     private final ClientsService clientsService;
 
-    @Autowired
-    public ClientsController(ClientsService clientsService) {
-        this.clientsService = clientsService;
-    }
+//    @Autowired
+//    public ClientsController(ClientsService clientsService) {
+//        this.clientsService = clientsService;
+//    }
 
     @GetMapping()
     public String index(Model model) {
@@ -44,7 +47,7 @@ class ClientsController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult) {
+    public String create(/*@ModelAttribute("client")*/@RequestBody @NotEmpty(message = "Input movie list cannot be empty.") @Valid Client client, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
 //            по какой-то причине сюда не попадает
             return "/clients/new"; //если форма имеет не валидные значения
@@ -53,6 +56,39 @@ class ClientsController {
             Client result = clientsService.save(client);
             return "redirect:/clients/" + result.getId();
     }
+
+
+
+//    @PostMapping
+//    public String create(@ModelAttribute @Valid Client client, BindingResult bindingResult, Model model) {
+//        if (bindingResult.hasErrors()) {
+////            по какой-то причине сюда не попадает
+//            return "/clients/new"; //если форма имеет не валидные значения
+//        } else {
+//            model.addAttribute("client", client);
+//
+//            if (client != null) {
+//                try {
+//                    // check for comments and if not present set to 'none'
+//                    String comments = checkNullString(client.getComments());
+//                    if (comments != "None") {
+//                        System.out.println("nothing changes");
+//                    } else {
+//                        client.setComments(comments);
+//                    }
+//                } catch (Exception e) {
+//
+//                    System.out.println(e);
+//
+//                }
+//                clientsService.save(client);
+//                System.out.println("new student added: " + client);
+//            }
+//        }
+//
+//        Client result = clientsService.save(client);
+//        return "redirect:/clients/" + result.getId();
+//    }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {

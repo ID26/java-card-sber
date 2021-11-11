@@ -3,6 +3,7 @@ package ru.sberbank.denisov26.javacard.models.client;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Card {
 
     @Id
@@ -37,5 +39,6 @@ public class Card {
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "client_id")
+    @ToString.Exclude
     private Client client;
 }

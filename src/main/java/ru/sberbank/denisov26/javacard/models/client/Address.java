@@ -3,6 +3,7 @@ package ru.sberbank.denisov26.javacard.models.client;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Address {
 
     @Id
@@ -24,6 +26,7 @@ public class Address {
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "client_id")
+    @ToString.Exclude
     private Client client;
 
     public Address(String city, String postCode, String street, String building, String extension, String apartment) {

@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString()
 public class Person {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -31,6 +31,7 @@ public class Person {
     @OneToOne(mappedBy = "person", cascade = {
             CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH
     })
+    @ToString.Exclude
     private Client client;
 
     public Person(String givenName, String surName, String patronymic, Sex sex, LocalDate dateOfBirth) {

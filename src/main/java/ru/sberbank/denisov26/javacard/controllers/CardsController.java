@@ -1,6 +1,7 @@
 package ru.sberbank.denisov26.javacard.controllers;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,15 +18,16 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("cards")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CardsController {
     private final CardsService cardsService;
     private final ClientsService clientsService;
 
-    @Autowired
-    public CardsController(CardsService cardsService, ClientsService clientsService) {
-        this.cardsService = cardsService;
-        this.clientsService = clientsService;
-    }
+//    @Autowired
+//    public CardsController(CardsService cardsService, ClientsService clientsService) {
+//        this.cardsService = cardsService;
+//        this.clientsService = clientsService;
+//    }
 
 
     @GetMapping()
