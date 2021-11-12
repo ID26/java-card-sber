@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Update client</title>
@@ -38,7 +38,7 @@
             <td><label for="gender">Gender: </label>
             <td>
             <select name="person.sex" id="gender" th:field="*{person.sex}">
-                <option th:each="gender : ${T(ru.sberbank.denisov26.javacard.models.client.Sex).values()}"
+                <option th:each="gender : ${T(ru.sberbank.denisov26.javacard.models.Sex).values()}"
                         th:value="${gender}" th:text="${gender.getDisplayValue()}">Gender</option>
             </select>
         </td>

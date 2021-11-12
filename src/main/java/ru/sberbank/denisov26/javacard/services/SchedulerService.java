@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import ru.sberbank.denisov26.javacard.models.client.Card;
-import ru.sberbank.denisov26.javacard.models.client.EmailAddress;
+import ru.sberbank.denisov26.javacard.models.Card;
+import ru.sberbank.denisov26.javacard.models.EmailAddress;
 
 import java.time.LocalDate;
 import java.util.List;

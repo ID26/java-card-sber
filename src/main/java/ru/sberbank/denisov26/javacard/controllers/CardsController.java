@@ -9,7 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.sberbank.denisov26.javacard.exceptions.CardNotFoundException;
 import ru.sberbank.denisov26.javacard.exceptions.ClientNotFoundException;
-import ru.sberbank.denisov26.javacard.models.client.Card;
+import ru.sberbank.denisov26.javacard.models.Card;
+import ru.sberbank.denisov26.javacard.models.Client;
 import ru.sberbank.denisov26.javacard.services.CardsService;
 import ru.sberbank.denisov26.javacard.services.ClientsService;
 import ru.sberbank.denisov26.javacard.utils.CardGenerator;
@@ -22,13 +23,6 @@ import javax.validation.Valid;
 public class CardsController {
     private final CardsService cardsService;
     private final ClientsService clientsService;
-
-//    @Autowired
-//    public CardsController(CardsService cardsService, ClientsService clientsService) {
-//        this.cardsService = cardsService;
-//        this.clientsService = clientsService;
-//    }
-
 
     @GetMapping()
     public String index(Model model) {
@@ -49,23 +43,25 @@ public class CardsController {
     }
 
     @GetMapping("/new/{id}")
-    public String newCard(@PathVariable("id") Long id, Model model/*@ModelAttribute("card" ) Card card*/) {
-        try {
-           Card card = CardGenerator.generateCard(clientsService.findById(id));;
-           model.addAttribute("card", card);
-           model.addAttribute("clientId", id);// put here for back step
-        } catch (ClientNotFoundException e) {
-            System.err.println(e);
-        }
+    public String newCard(@PathVariable("id") Long id, /*@ModelAttribute("card" ) Card card,*/ Model model) {
+            try {
+                Card tempCard = CardGenerator.generateCard(clientsService.findById(id));
+                model.addAttribute("card", tempCard);
+            } catch (ClientNotFoundException e) {
+                System.err.println(e);
+            }
+            model.addAttribute("clientId", id);
+
         return "cards/new";
     }
 
     @PostMapping("/new/{id}")
     public String create(@PathVariable("id") Long id, @ModelAttribute("card") @Valid Card card,
-                         BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "cards/new/" + id; //если форма имеет не валидные значения
-//        }
+                         BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("clientId", id);
+            return String.format("cards/new");
+        }
         try {
             card.setClient(clientsService.findById(id));
         } catch (ClientNotFoundException e) {
@@ -76,10 +72,11 @@ public class CardsController {
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") Long id) {
+    public String edit(@PathVariable("id") Long id, Model model) {
         try {
             Card card = cardsService.findById(id);
             model.addAttribute("card", card);
+            model.addAttribute("cardId", card.getId());
         } catch (CardNotFoundException e) {
             System.err.println(e);
         }
@@ -87,11 +84,22 @@ public class CardsController {
     }
 
     @PostMapping("/{id}")
-    public String update(@ModelAttribute("card") @Valid Card card, BindingResult bindingResult,
-                         @PathVariable("id") Long id) {
+    public String update(@PathVariable("id") Long id,
+                         @ModelAttribute("card") @Valid Card card,
+                         BindingResult bindingResult, Model model) {
+
         if (bindingResult.hasErrors()) {
-            return "clients/edit";
+            model.addAttribute("card", card);
+            model.addAttribute("cardId", id);
+            return String.format("cards/edit");
         }
+        try {
+            Client client = cardsService.findById(id).getClient();
+            card.setClient(client);
+        } catch (CardNotFoundException e) {
+            e.printStackTrace();
+        }
+
         cardsService.update(id, card);
         return String.format("redirect:/cards/%d", id);
     }

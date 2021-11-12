@@ -1,11 +1,10 @@
-package ru.sberbank.denisov26.javacard.models.client;
+package ru.sberbank.denisov26.javacard.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,22 +31,21 @@ public class Client {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)
     @JoinColumn(name = "client_id")
 //    @Singular
-    @NotEmpty(message = "Input movie list cannot be empty.")
+//    @NotEmpty(message = "Input movie list cannot be empty.")
     private List<Phone> phones = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)
     @JoinColumn(name = "client_id")
-    @NotEmpty(message = "Input movie list cannot be empty.")
+//    @NotEmpty(message = "Input movie list cannot be empty.")
     private List<Address> addresses;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)
     @JoinColumn(name = "client_id")
-    @NotEmpty(message = "Input movie list cannot be empty.")
+//    @NotEmpty(message = "Input movie list cannot be empty.")
     private List<EmailAddress> emails;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)
     @JoinColumn(name = "client_id")
-    @NotEmpty(message = "Input movie list cannot be empty.")
     private List<Card> cards;
 
     public Client(Person person, Passport passport, List<Phone> phones, List<Address> addresses, List<EmailAddress> emails, List<Card> cards) {

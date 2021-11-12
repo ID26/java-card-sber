@@ -1,12 +1,11 @@
 package ru.sberbank.denisov26.javacard.services;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sberbank.denisov26.javacard.exceptions.ClientNotFoundException;
-import ru.sberbank.denisov26.javacard.models.client.Client;
-import ru.sberbank.denisov26.javacard.models.client.Passport;
+import ru.sberbank.denisov26.javacard.models.Client;
+import ru.sberbank.denisov26.javacard.models.Passport;
 import ru.sberbank.denisov26.javacard.repository.*;
 
 import java.time.LocalDate;

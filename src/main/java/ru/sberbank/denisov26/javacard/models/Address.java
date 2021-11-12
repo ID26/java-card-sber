@@ -1,4 +1,4 @@
-package ru.sberbank.denisov26.javacard.models.client;
+package ru.sberbank.denisov26.javacard.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

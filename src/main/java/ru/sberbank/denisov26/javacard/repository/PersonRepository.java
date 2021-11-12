@@ -4,8 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import ru.sberbank.denisov26.javacard.models.client.Person;
-import ru.sberbank.denisov26.javacard.models.client.Sex;
+import ru.sberbank.denisov26.javacard.models.Person;
+import ru.sberbank.denisov26.javacard.models.Sex;
 
 import java.time.LocalDate;
 @Repository

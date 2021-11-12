@@ -1,4 +1,4 @@
-package ru.sberbank.denisov26.javacard.models.client;
+package ru.sberbank.denisov26.javacard.models;
 
 public enum CardAssociation {
     VISA("VISA"),

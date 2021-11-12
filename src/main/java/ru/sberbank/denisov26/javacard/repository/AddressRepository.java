@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import org.springframework.stereotype.Repository;
-import ru.sberbank.denisov26.javacard.models.client.Address;
+import ru.sberbank.denisov26.javacard.models.Address;
 
 import java.util.List;
 @Repository

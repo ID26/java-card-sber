@@ -1,8 +1,8 @@
 package ru.sberbank.denisov26.javacard.utils;
 
 import ru.sberbank.denisov26.javacard.exceptions.AddressError;
-import ru.sberbank.denisov26.javacard.models.client.Card;
-import ru.sberbank.denisov26.javacard.models.client.Client;
+import ru.sberbank.denisov26.javacard.models.Card;
+import ru.sberbank.denisov26.javacard.models.Client;
 
 import java.time.LocalDate;
 import java.util.Random;

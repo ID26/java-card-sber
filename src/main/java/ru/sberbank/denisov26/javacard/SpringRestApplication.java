@@ -6,8 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import ru.sberbank.denisov26.javacard.models.client.*;
-import ru.sberbank.denisov26.javacard.repository.EmailAddressRepository;
+import ru.sberbank.denisov26.javacard.models.*;
 import ru.sberbank.denisov26.javacard.services.CardsService;
 import ru.sberbank.denisov26.javacard.services.ClientsService;
 import ru.sberbank.denisov26.javacard.services.EmailAddressService;
@@ -15,7 +14,6 @@ import ru.sberbank.denisov26.javacard.services.EmailServiceImpl;
 import ru.sberbank.denisov26.javacard.utils.CardGenerator;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -81,6 +79,21 @@ public class SpringRestApplication implements CommandLineRunner {
         card6.setCardAssociationName(CardAssociation.MASTER_CARD);
         card7.setCardAssociationName(CardAssociation.MIR);
 
+        card1.setDailyWithdrawalLimit(1L);
+        card2.setDailyWithdrawalLimit(2L);
+        card3.setDailyWithdrawalLimit(3L);
+        card4.setDailyWithdrawalLimit(4L);
+        card5.setDailyWithdrawalLimit(5L);
+        card6.setDailyWithdrawalLimit(6L);
+        card7.setDailyWithdrawalLimit(7L);
+
+        card1.setBalance(4000L);
+        card2.setBalance(4000L);
+        card3.setBalance(40000L);
+        card4.setBalance(40000L);
+        card5.setBalance(40000L);
+        card6.setBalance(40000L);
+        card7.setBalance(40000L);
 
         alena.setCards(Arrays.asList(card1, card2));
         nikita.setCards(Arrays.asList(card3, card4));

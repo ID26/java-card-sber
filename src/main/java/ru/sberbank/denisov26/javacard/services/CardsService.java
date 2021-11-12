@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sberbank.denisov26.javacard.exceptions.CardNotFoundException;
-import ru.sberbank.denisov26.javacard.models.client.Card;
+import ru.sberbank.denisov26.javacard.models.Card;
 import ru.sberbank.denisov26.javacard.repository.CardRepository;
 
 import java.time.LocalDate;

@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import ru.sberbank.denisov26.javacard.models.client.Card;
-import ru.sberbank.denisov26.javacard.models.client.CardAssociation;
+import ru.sberbank.denisov26.javacard.models.Card;
+import ru.sberbank.denisov26.javacard.models.CardAssociation;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -36,6 +36,6 @@ public interface CardRepository extends JpaRepository<Card, Long> {
             "c.balance = ?10 where c.id = ?1")
     void setCardById(Long id, CardAssociation cardAssociationName, String cardNumber, String nameOnCard,
                      String billingAddress, LocalDate validFrom, LocalDate expiryDate,
-                     String cardVerificationCode, String dailyWithdrawalLimit, String balance);
+                     String cardVerificationCode, Long dailyWithdrawalLimit, Long balance);
 
 }
