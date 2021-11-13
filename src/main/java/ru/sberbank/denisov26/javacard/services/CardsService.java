@@ -17,11 +17,6 @@ public class CardsService {
 
     private final CardRepository cardRepository;
 
-//    @Autowired
-//    public CardsService(CardRepository cardRepository) {
-//        this.cardRepository = cardRepository;
-//    }
-
     public void save(Card card) {
         cardRepository.save(card);
     }

@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import ru.sberbank.denisov26.javacard.exceptions.ClientNotFoundException;
+import ru.sberbank.denisov26.javacard.exceptions.PassportError;
 import ru.sberbank.denisov26.javacard.models.Client;
 import ru.sberbank.denisov26.javacard.services.ClientsService;
 
@@ -18,11 +20,6 @@ import javax.validation.Valid;
 class ClientsController {
 
     private final ClientsService clientsService;
-
-//    @Autowired
-//    public ClientsController(ClientsService clientsService) {
-//        this.clientsService = clientsService;
-//    }
 
     @GetMapping()
     public String index(Model model) {
@@ -42,18 +39,18 @@ class ClientsController {
 
     @GetMapping("/new")
     public String newClient(@ModelAttribute("client" ) Client client) {
+
         return "clients/new";
     }
 
     @PostMapping
     public String create(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-//            по какой-то причине сюда не попадает
             return "/clients/new"; //если форма имеет не валидные значения
         }
 
             Client result = clientsService.save(client);
-            return "redirect:/clients/" + result.getId();
+            return String.format("redirect:/clients/%d", result.getId());
     }
 
     @GetMapping("/{id}/edit")
@@ -68,11 +65,16 @@ class ClientsController {
 
     @PostMapping("/{id}")
     public String update(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult,
-                         @PathVariable("id") Long id) {
+                         @PathVariable("id") Long id, Model model) {
         if (bindingResult.hasErrors()) {
             return "clients/edit";
         }
-        clientsService.update(id, client);
+        try {
+            clientsService.update(id, client);
+        } catch (PassportError passportError) {
+            model.addAttribute("passportError", passportError.toString());
+            return "clients/edit";
+        }
         return "redirect:/clients";
     }
 

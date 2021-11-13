@@ -18,24 +18,33 @@
     </tr>
     <tr>
         <td>Full name: </td>
-        <td th:text="${client.person.getSurName() + ' ' + client.person.getGivenName() + ' '
-        +client.person.getPatronymic()}">VALUE</td>
+        <td th:text="${client.getPerson().getSurName() + ' ' + client.getPerson().getGivenName() + ' '
+        + client.getPerson().getPatronymic()}">VALUE</td>
     </tr>
     <tr>
-        <td>Gender: </td> <td th:text="${client.person.getSex()}">VALUE</td>
+        <td>Passport: </td>
+        <td th:text="${'Id: ' + client.getPassport().getId() +
+        ', Series: ' + client.getPassport().getPassportSeries() +
+        ', Number: ' + client.getPassport().getPassportNumber() +
+        ', Issue date: ' + client.getPassport().issueDate +
+        ', Issue department: '+ client.getPassport().getIssueDepartment() +
+        ', Code department: ' + client.getPassport().getCodDepartment()}">VALUE</td>
     </tr>
     <tr>
-        <td>Date of birth: </td> <td th:text="${client.person.getDateOfBirth()}">VALUE</td>
+        <td>Gender: </td> <td th:text="${client.getPerson().getSex()}">VALUE</td>
     </tr>
-    <tr th:each="phone : ${client.phones}">
+    <tr>
+        <td>Date of birth: </td> <td th:text="${client.getPerson().getDateOfBirth()}">VALUE</td>
+    </tr>
+    <tr th:each="phone : ${client.getPhones()}">
         <td>Phone: </td> <td th:text="${phone.getPhoneNumber()}">VALUE</td>
     </tr>
-    <tr th:each="address : ${client.addresses}">
-        <td>Address: </td> <td th:text="${address.getPostCode() + ', ' + address.getCity() + ', '
-    + address.getStreet() + ', ' + address.getBuilding() + ', '
-       + address.getExtension() + ', ' + address.getApartment()}">VALUE</td>
+    <tr th:each="address : ${client.getAddresses()}">
+        <td>Address: </td> <td th:text="${address.getPostCode() + ' ' + address.getCity() + ' '
+    + address.getStreet() + ' ' + address.getBuilding() + ' '
+       + address.getExtension() + ' ' + address.getApartment()}">VALUE</td>
     </tr>
-    <tr th:each="email : ${client.emails}">
+    <tr th:each="email : ${client.getEmails()}">
         <td>Email: </td> <td th:text="${email.getEmailAddress()}">VALUE</td>
     </tr>
     </tbody>
@@ -58,7 +67,7 @@
     <th scope="col"></th>
     </thead>
     <tbody>
-    <tr th:each="card : ${client.cards}">
+    <tr th:each="card : ${client.getCards()}">
                    <td> <a th:href="@{/cards/{id}(id=${card.getId()})}"
                        th:text="${card.getCardAssociationName() + ' '
                + card.getCardNumber() + ' ' + card.getExpiryDate()}">card</a> </td><td></td>
@@ -77,3 +86,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<!--.format(java.time.format.DateTimeFormatter().ofPattern('yyyy-MM-dd'))-->

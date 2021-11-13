@@ -37,29 +37,34 @@ public class SpringRestApplication implements CommandLineRunner {
         Address lenin = new Address("Rostov-on-Don", "344001", "Lenin", "100", "3", "45");
         Address dnepr = new Address("Rostov-on-Don", "344002", "Dneprovskiy", "120", "B", "200");
         Address druzhby = new Address("Leninavan", "344003", "Druzhby", "50", "5", "");
+        Address lenin1 = new Address("Rostov-on-Don", "344001", "Lenin", "100", "3", "45");
+        Address dnepr1 = new Address("Rostov-on-Don", "344002", "Dneprovskiy", "120", "B", "200");
+        Address druzhby1 = new Address("Leninavan", "344003", "Druzhby", "50", "5", "");
 
         Person personAlena = new Person("Alena", "Denisova", "Ivanovna", Sex.FEMALE, LocalDate.of(2012, 03, 06));
         Person personNikita = new Person("Nikita", "Denisov", "Ivanovich", Sex.MALE, LocalDate.of(2010, 02, 01));
         Person personKate = new Person("Ekaterina", "Bahareva", "Alexandrovna", Sex.FEMALE, LocalDate.of(2002, 10, 26));
 
         Passport passportAlena = new Passport("0000", "111111",
-                LocalDate.of(2012, 03, 06), "OBD", "714");
+                LocalDate.of(2012, 03, 06), "OBD", "714714");
         Passport passportNikita = new Passport("1111", "222222",
-                LocalDate.of(2010, 02, 01), "OBD", "714");
+                LocalDate.of(2010, 02, 01), "OBD", "714714");
         Passport passportKate = new Passport("2222", "333333",
-                LocalDate.of(2002, 10, 26), "OBD", "714");
+                LocalDate.of(2002, 10, 26), "OBD", "714714");
 
-        Client alena = new Client(personAlena, passportAlena, Arrays.asList(new Phone("12345678901"), new Phone()),
-                Arrays.asList(lenin, new Address()),
+        Client alena = new Client(personAlena, passportAlena,
+                Arrays.asList(new Phone("12345678901"), new Phone("12345678901")),
+                Arrays.asList(lenin, lenin1),
                 Arrays.asList(new EmailAddress("ivandenisov26@mail.ru"), new EmailAddress("pr0j6ct@yandex.com")),
                 Arrays.asList(new Card()));
-        Client nikita = new Client(personNikita, passportNikita, Arrays.asList(new Phone("23456789012"), new Phone()),
-                Arrays.asList(druzhby, new Address()),
+        Client nikita = new Client(personNikita, passportNikita,
+                Arrays.asList(new Phone("23456789012"), new Phone("23456789012")),
+                Arrays.asList(druzhby, druzhby1),
                 Arrays.asList(new EmailAddress("workpost26@gmail.com"), new EmailAddress("pr0j6ct@yandex.com")),
                 Arrays.asList(new Card()));
         Client ekaterina = new Client(personKate, passportKate,
-                Arrays.asList(new Phone("34567890123"), new Phone()),
-                Arrays.asList(dnepr, new Address()),
+                Arrays.asList(new Phone("34567890123"), new Phone("34567890123")),
+                Arrays.asList(dnepr, dnepr1),
                 Arrays.asList(new EmailAddress("ivandenisov1979@yandex.ru"), new EmailAddress("pr0j6ct@yandex.com")),
                 Arrays.asList(new Card()));
 

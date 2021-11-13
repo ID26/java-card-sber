@@ -7,6 +7,8 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
@@ -18,11 +20,25 @@ public class Passport {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+
+    @NotNull
+    @Size(min=4, max=4, message = "Passport series mast have 4 digits!")
     private String passportSeries;
+
+    @NotNull
+    @Size(min=6, max=6, message = "Passport number mast have 6 digits!")
     private String passportNumber;
+
+    @NotNull(message = "Input issue date!")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate issueDate;
+
+    @NotNull
+    @Size(min=2, max=250, message = "Issue department mast have from 2 to 250 characters" )
     private String issueDepartment;
+
+    @NotNull
+    @Size(min=6, max=6, message = "Code department mast have 6 digits!")
     private String codDepartment;
 
     @OneToOne(mappedBy = "passport", cascade = {

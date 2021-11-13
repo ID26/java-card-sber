@@ -15,29 +15,30 @@ object - передаем ему объект класса клиент-->
 <form th:method="POST" th:action="@{/clients}" th:object="${client}">
     <!--    для инпута ниже автоматически нет лейбла по этому назначаем его (в input мы сделали
     id по которому мы и сошлемся к полю вввода-->
-    <table class="table table-dark">
+    <table class="table">
+
         <tbody>
         <tr>
             <td><label for="surName">Surname: </label></td>
             <!--    в теле этого тега мы устанавливаем значения полей нашего объекта-->
             <td><input type="text" th:field="*{person.surName}" id="surName"/></td>
             <!--выводить сообщение об ошибке-->
-<!--            <div style="color:red" th:if="${#fields.hasErrors('person.surName')}" th:errors="*{person.surName}">Surname error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('person.surName')}" th:errors="*{person.surName}">Surname error</td>
         </tr>
         <tr>
             <td><label for="givenName">Name: </label></td>
             <td><input type="text" th:field="*{person.givenName}" id="givenName"/></td>
-            <div style="color:red" th:if="${#fields.hasErrors('person.givenName')}" th:errors="*{person.givenName}">Name error</div>
+            <td style="color:red" th:if="${#fields.hasErrors('person.givenName')}" th:errors="*{person.givenName}">Name error</td>
         </tr>
         <tr>
             <td><label for="patronymic">Patronymic: </label></td>
             <td><input type="text" th:field="*{person.patronymic}" id="patronymic"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('person.patronymic')}" th:errors="*{person.patronymic}">Patronymic error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('person.patronymic')}" th:errors="*{person.patronymic}">Patronymic error</td>
         <tr/>
         <tr>
             <td><label for="dateOfBirth">Date of Birth: </label></td>
             <td><input type="date" th:field="*{person.dateOfBirth}" id="dateOfBirth"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('person.dateOfBirth')}" th:errors="*{person.dateOfBirth}">Date error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('person.dateOfBirth')}" th:errors="*{person.dateOfBirth}">Date error</td>
         </tr>
         <tr>
             <td><label for="gender">Gender: </label>
@@ -45,117 +46,118 @@ object - передаем ему объект класса клиент-->
                 <option th:each="sexOpt : ${T(ru.sberbank.denisov26.javacard.models.Sex).values()}"
                         th:value="${sexOpt}" th:text="${sexOpt.displayValue}">Gender</option>
             </select></td>
+            <td style="color:red" th:if="${#fields.hasErrors('person.sex')}" th:errors="*{person.sex}">Gender error</td>
         </tr>
         <tr>
             <td><label for="passportSeries">Passport series: </label></td>
             <td><input type="text" th:field="*{passport.passportSeries}" id="passportSeries"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('passport.passportSeries')}" th:errors="*{passport.passportSeries}">Passport error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('passport.passportSeries')}" th:errors="*{passport.passportSeries}">Passport error</td>
         <tr/>
         <tr>
             <td><label for="passportNumber">Passport number: </label></td>
             <td><input type="text" th:field="*{passport.passportNumber}" id="passportNumber"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('passport.passportNumber')}" th:errors="*{passport.passportNumber}">Passport error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('passport.passportNumber')}" th:errors="*{passport.passportNumber}">Passport error</td>
         </tr>
         <tr>
             <td><label for="passportIssueDate">Passport issue date: </label></td>
             <td><input type="date" th:field="*{passport.issueDate}" id="passportIssueDate"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('passport.issueDate')}" th:errors="*{passport.issueDate}">Passport error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('passport.issueDate')}" th:errors="*{passport.issueDate}">Passport error</td>
         </tr>
         <tr>
             <td><label for="passportIssueDepartment">Passport issue department: </label></td>
             <td><input type="text" th:field="*{passport.issueDepartment}" id="passportIssueDepartment"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('passport.issueDepartment')}" th:errors="*{passport.issueDepartment}">Passport error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('passport.issueDepartment')}" th:errors="*{passport.issueDepartment}">Passport error</td>
         </tr>
         <tr>
             <td><label for="passportCodDepartment">Passport code department: </label></td>
             <td><input type="text" th:field="*{passport.codDepartment}" id="passportCodDepartment"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('passport.codDepartment')}" th:errors="*{passport.codDepartment}">Passport error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('passport.codDepartment')}" th:errors="*{passport.codDepartment}">Passport error</td>
         </tr>
         <tr>
             <td><label for="phoneNumber1">Phone number #1: </label></td>
             <td><input type="text" th:field="*{phones[0].phoneNumber}" id="phoneNumber1"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('phones[0].phoneNumber')}" th:errors="*{phones[0].phoneNumber}">Telephone error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('phones[0].phoneNumber')}" th:errors="*{phones[0].phoneNumber}">Telephone error</td>
         </tr>
         <tr>
             <td><label for="phoneNumber2">Phone number #2: </label></td>
             <td><input type="text" th:field="*{phones[1].phoneNumber}" id="phoneNumber2"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('phones[1].phoneNumber')}" th:errors="*{phones[1].phoneNumber}">Telephone error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('phones[1].phoneNumber')}" th:errors="*{phones[1].phoneNumber}">Telephone error</td>
         </tr>
         <tr>
             <td><label for="email1">Email #1: </label></td>
             <td><input type="text" th:field="*{emails[0].emailAddress}" id="email1"/></td>
-<!--            <td><div style="color:red" th:if="${#fields.hasErrors('emails[0].emailAddress')}" th:errors="*{emails[0].emailAddress}">Telephone error</div><td>-->
+            <td style="color:red" th:if="${#fields.hasErrors('emails[0].emailAddress')}" th:errors="*{emails[0].emailAddress}">Email error<td>
         </tr>
         <tr>
             <td><label for="email2">Email #2: </label></td>
             <td><input type="text" th:field="*{emails[1].emailAddress}" id="email2"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('emails[1].emailAddress')}" th:errors="*{emails[1].emailAddress}">Telephone error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('emails[1].emailAddress')}" th:errors="*{emails[1].emailAddress}">Email error</td>
         </tr>
         <tr>
-            <td><a>Address #1: </a></td><td></td>
+            <td><a>Address #1: </a></td><td></td><td></td>
         <tr/>
         <tr>
             <td><label for="city">City: </label></td>
             <td><input type="text" th:field="*{addresses[0].city}" id="city"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('addresses[0].city')}" th:errors="*{addresses[0].city}">City error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('addresses[0].city')}" th:errors="*{addresses[0].city}">City error</td>
         <tr/>
         <tr>
             <td><label for="postCode">Post Code: </label></td>
             <td><input type="text" th:field="*{addresses[0].postCode}" id="postCode"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('addresses[0].postCode')}" th:errors="*{addresses[0].postCode}">PostCode error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('addresses[0].postCode')}" th:errors="*{addresses[0].postCode}">PostCode error</td>
         <tr/>
         <tr>
             <td><label for="street">Street Name: </label></td>
             <td><input type="text" th:field="*{addresses[0].street}" id="street"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('addresses[0].street')}" th:errors="*{addresses[0].street}">Street error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('addresses[0].street')}" th:errors="*{addresses[0].street}">Street error</td>
         <tr/>
         <tr>
             <td><label for="building">Building: </label></td>
             <td><input type="text" th:field="*{addresses[0].building}" id="building"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('addresses[0].building')}" th:errors="*{addresses[0].building}">Building error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('addresses[0].building')}" th:errors="*{addresses[0].building}">Building error</td>
         <tr/>
         <tr>
             <td><label for="extension">Extension: </label></td>
             <td><input type="text" th:field="*{addresses[0].extension}" id="extension"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('addresses[0].extension')}" th:errors="*{addresses[0].extension}">Extension error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('addresses[0].extension')}" th:errors="*{addresses[0].extension}">Extension error</td>
         <tr/>
         <tr>
             <td><label for="apartment">Apartment: </label></td>
             <td><input type="text" th:field="*{addresses[0].apartment}" id="apartment"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('addresses[0].apartment')}" th:errors="*{addresses[0].apartment}">Apartment error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('addresses[0].apartment')}" th:errors="*{addresses[0].apartment}">Apartment error</td>
         <tr/>
         <tr>
-            <td><a>Address #2: </a></td><td></td>
+            <td><a>Address #2: </a></td><td></td><td></td>
         <tr/>
         <tr>
             <td><label for="city2">City: </label></td>
             <td><input type="text" th:field="*{addresses[1].city}" id="city2"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('addresses[1].city')}" th:errors="*{addresses[1].city}">City error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('addresses[1].city')}" th:errors="*{addresses[1].city}">City error</td>
         <tr/>
         <tr>
             <td><label for="postCode2">Post Code: </label></td>
             <td><input type="text" th:field="*{addresses[1].postCode}" id="postCode2"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('addresses[1].postCode')}" th:errors="*{addresses[1].postCode}">PostCode error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('addresses[1].postCode')}" th:errors="*{addresses[1].postCode}">PostCode error</td>
         <tr/>
         <tr>
             <td><label for="street2">Street Name: </label></td>
             <td><input type="text" th:field="*{addresses[1].street}" id="street2"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('addresses[1].street')}" th:errors="*{addresses[1].street}">Street error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('addresses[1].street')}" th:errors="*{addresses[1].street}">Street error</td>
         <tr/>
         <tr>
             <td><label for="building2">Building: </label></td>
             <td><input type="text" th:field="*{addresses[1].building}" id="building2"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('addresses[1].building')}" th:errors="*{addresses[1].building}">Building error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('addresses[1].building')}" th:errors="*{addresses[1].building}">Building error</td>
         <tr/>
         <tr>
             <td><label for="extension2">Extension: </label></td>
             <td><input type="text" th:field="*{addresses[1].extension}" id="extension2"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('addresses[1].extension')}" th:errors="*{addresses[1].extension}">Extension error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('addresses[1].extension')}" th:errors="*{addresses[1].extension}">Extension error</td>
         <tr/>
         <tr>
             <td><label for="apartment2">Apartment: </label></td>
             <td><input type="text" th:field="*{addresses[1].apartment}" id="apartment2"/></td>
-<!--            <div style="color:red" th:if="${#fields.hasErrors('addresses[1].apartment')}" th:errors="*{addresses[1].apartment}">Apartment error</div>-->
+            <td style="color:red" th:if="${#fields.hasErrors('addresses[1].apartment')}" th:errors="*{addresses[1].apartment}">Apartment error</td>
         <tr/>
         </tbody>
         <tbottom>
@@ -163,6 +165,7 @@ object - передаем ему объект класса клиент-->
                 <!--  кнопка отправки нашей формы  -->
                 <input type="submit" value="CREATE"/>
             </th>
+            <th></th>
             <th>
                 <div style="float: right">
                     <a href="templates.clients.index.html" th:href="@{/clients}">Back Step</a>

@@ -43,7 +43,7 @@ public class CardsController {
     }
 
     @GetMapping("/new/{id}")
-    public String newCard(@PathVariable("id") Long id, /*@ModelAttribute("card" ) Card card,*/ Model model) {
+    public String newCard(@PathVariable("id") Long id, Model model) {
             try {
                 Card tempCard = CardGenerator.generateCard(clientsService.findById(id));
                 model.addAttribute("card", tempCard);
@@ -51,13 +51,11 @@ public class CardsController {
                 System.err.println(e);
             }
             model.addAttribute("clientId", id);
-
         return "cards/new";
     }
 
     @PostMapping("/new/{id}")
-    public String create(@PathVariable("id") Long id, @ModelAttribute("card") @Valid Card card,
-                         BindingResult bindingResult, Model model) {
+    public String create(@PathVariable("id") Long id, @ModelAttribute("card") @Valid Card card,BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("clientId", id);
             return String.format("cards/new");
@@ -84,10 +82,7 @@ public class CardsController {
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable("id") Long id,
-                         @ModelAttribute("card") @Valid Card card,
-                         BindingResult bindingResult, Model model) {
-
+    public String update(@PathVariable("id") Long id, @ModelAttribute("card") @Valid Card card,BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("card", card);
             model.addAttribute("cardId", id);
@@ -99,7 +94,6 @@ public class CardsController {
         } catch (CardNotFoundException e) {
             e.printStackTrace();
         }
-
         cardsService.update(id, card);
         return String.format("redirect:/cards/%d", id);
     }

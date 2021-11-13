@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sberbank.denisov26.javacard.exceptions.ClientNotFoundException;
+import ru.sberbank.denisov26.javacard.exceptions.PassportError;
 import ru.sberbank.denisov26.javacard.models.Client;
 import ru.sberbank.denisov26.javacard.models.Passport;
 import ru.sberbank.denisov26.javacard.repository.*;
@@ -51,17 +52,20 @@ public class ClientsService {
         Passport passport = passportRepository.findPassportByPassportSeriesAndPassportNumber(
                 client.getPassport().getPassportSeries(), client.getPassport().getPassportNumber());
         if (passport != null) {
-//            try {
-                return clientRepository.findById(passport.getClient().getId()).orElse(null);
-//            } catch (ClientNotFoundException e) {
-//                System.err.println(e);
-//            }
+            return passport.getClient();
         }
-            return clientRepository.save(client);
+        return clientRepository.save(client);
     }
 
     @Transactional
-    public void update(Long id, Client client) {
+    public void update(Long id, Client client) throws PassportError {
+
+        Passport passport = passportRepository.findPassportByPassportSeriesAndPassportNumber(
+                client.getPassport().getPassportSeries(), client.getPassport().getPassportNumber());
+        if (passport != null) {
+            throw new PassportError("Attention!!! This passport belongs to another client, check client and passport!");
+        }
+
 //        Чтоб потом не забыл, из шаблона приходят только данные из форм (набор аргументов, а не сущьности),
 //        по этому нам нужен объект из базы, чтоб брать у него id составных сущностей
         try {

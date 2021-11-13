@@ -7,6 +7,8 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -19,6 +21,8 @@ public class EmailAddress {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
+    @NotNull
+    @Size(min = 5, max = 250, message = "Email mast have from 2 to 250 characters!")
     @Email(message = "Email don't valid!")
     private String emailAddress;
 

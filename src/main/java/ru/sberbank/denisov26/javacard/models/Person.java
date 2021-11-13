@@ -7,6 +7,9 @@ import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
@@ -19,17 +22,24 @@ public class Person {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-//    @NotEmpty(message = "Name can't be empty!")
+    @NotNull
+    @Size(min=2, max=50, message = "Name mast have from 2 to 50 characters!")
     private String givenName;
-//    @NotEmpty(message = "Person not valid")
+
+    @NotNull
+    @Size(min=2, max=50, message = "Surname mast have from 2 to 50 characters!")
     private String surName;
-//    @NotEmpty(message = "Person not valid")
+
+    @NotNull
+    @Size(min=2, max=50, message = "Patronymic mast have from 2 to 50 characters!")
     private String patronymic;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Input gender!")
     private Sex sex;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    @NotEmpty(message = "Person not valid")
+    @NotNull(message = "Input date of birth!")
     private LocalDate dateOfBirth;
 
     @OneToOne(mappedBy = "person", cascade = {
