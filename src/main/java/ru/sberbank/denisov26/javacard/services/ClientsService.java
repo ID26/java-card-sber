@@ -44,8 +44,7 @@ public class ClientsService {
     }
 
     public Client findById(Long id) throws ClientNotFoundException {
-        Client client = clientRepository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client not found!!!"));
-        return client;
+        return clientRepository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client not found!!!"));
     }
 
     public Client save(Client client) {
@@ -59,12 +58,7 @@ public class ClientsService {
 
     @Transactional
     public void update(Long id, Client client) throws PassportError {
-
-        Passport passport = passportRepository.findPassportByPassportSeriesAndPassportNumber(
-                client.getPassport().getPassportSeries(), client.getPassport().getPassportNumber());
-        if (passport != null) {
-            throw new PassportError("Attention!!! This passport belongs to another client, check client and passport!");
-        }
+        checkPassport(client);
 
 //        Чтоб потом не забыл, из шаблона приходят только данные из форм (набор аргументов, а не сущьности),
 //        по этому нам нужен объект из базы, чтоб брать у него id составных сущностей
@@ -115,6 +109,14 @@ public class ClientsService {
             }
         } catch (ClientNotFoundException e) {
             System.err.println(e);
+        }
+    }
+
+    private void checkPassport(Client client) throws PassportError {
+        Passport passport = passportRepository.findPassportByPassportSeriesAndPassportNumber(
+                client.getPassport().getPassportSeries(), client.getPassport().getPassportNumber());
+        if (passport != null && !client.getId().equals(passport.getClient().getId())) {
+            throw new PassportError("Attention!!! This passport belongs to another client, check client and passport!");
         }
     }
 

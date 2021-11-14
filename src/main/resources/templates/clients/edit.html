@@ -8,164 +8,243 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<!--th:method="PATCH" при таком описании метода thymeleaf автоматически
- создает скрытое поле с методом PATCH-->
-<!--"PATCH"-->
 <form th:method="POST" th:action="@{/clients/{id}(id=${client.getId()})}" th:object="${client}">
-    <table class="table">
+    <table class="table align-middle table-hover table-bordered">
+        <caption>Edit Client</caption>
+        <thead>
+        <tr>
+            <th scope="row">#</th>
+            <th scope="col">Parameter</th>
+            <th scope="col">Input field</th>
+        </tr>
+        </thead>
+
         <tbody>
         <tr>
-            <td><label for="surName">Surname: </label></td>
-            <!--    в теле этого тега мы устанавливаем значения полей нашего объекта-->
-            <td><input type="text" th:field="*{person.surName}" id="surName"/></td>
-            <!--выводить сообщение об ошибке-->
-            <td style="color:red" th:if="${#fields.hasErrors('person.surName')}" th:errors="*{person.surName}">Surname error</td>
+            <th scope="row" padding-left="10">1</th>
+            <td class="mx-auto" style="width: 400px"><label for="surName">Surname: </label></td>
+            <td>
+                <input type="text" th:field="*{person.surName}" id="surName"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('person.surName')}" th:errors="*{person.surName}">Surname error</strong>
+            </td>
         </tr>
         <tr>
+            <th scope="row">2</th>
             <td><label for="givenName">Name: </label></td>
-            <td><input type="text" th:field="*{person.givenName}" id="givenName"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('person.givenName')}" th:errors="*{person.givenName}">Name error</td>
+            <td>
+                <input type="text" th:field="*{person.givenName}" id="givenName"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('person.givenName')}" th:errors="*{person.givenName}">Name error</strong>
+            </td>
         </tr>
         <tr>
+            <th scope="row">3</th>
             <td><label for="patronymic">Patronymic: </label></td>
-            <td><input type="text" th:field="*{person.patronymic}" id="patronymic"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('person.patronymic')}" th:errors="*{person.patronymic}">Patronymic error</td>
-        <tr/>
+            <td>
+                <input type="text" th:field="*{person.patronymic}" id="patronymic"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('person.patronymic')}" th:errors="*{person.patronymic}">Patronymic error</strong>
+            </td>
+        </tr>
         <tr>
+            <th scope="row">4</th>
             <td><label for="dateOfBirth">Date of Birth: </label></td>
-            <td><input type="date" th:field="*{person.dateOfBirth}" id="dateOfBirth"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('person.dateOfBirth')}" th:errors="*{person.dateOfBirth}">Date error</td>
+            <td>
+                <input type="date" th:field="*{person.dateOfBirth}" id="dateOfBirth"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('person.dateOfBirth')}" th:errors="*{person.dateOfBirth}">Date error</strong>
+            </td>
         </tr>
         <tr>
+            <th scope="row">5</th>
             <td><label for="gender">Gender: </label>
-            <td><select name="person.sex" id="gender">
-                <option th:each="sexOpt : ${T(ru.sberbank.denisov26.javacard.models.Sex).values()}"
-                        th:value="${sexOpt}" th:text="${sexOpt.displayValue}">Gender</option>
-            </select></td>
-            <td style="color:red" th:if="${#fields.hasErrors('person.sex')}" th:errors="*{person.sex}">Gender error</td>
+            <td colspan="2">
+                <select name="person.sex" id="gender" th:field="*{person.sex}">
+                    <option th:each="sexOpt : ${T(ru.sberbank.denisov26.javacard.models.Sex).values()}"
+                            th:value="${sexOpt}" th:text="${sexOpt.displayValue}">Gender</option>
+                </select>
+            </td>
         </tr>
         <tr>
-            <td><h1 style="color:red"  text="" th:text="${passportError}">VALUE</h1></td>
-        </tr>
-        <tr>
+            <th scope="row">6</th>
             <td><label for="passportSeries">Passport series: </label></td>
-            <td><input type="text" th:field="*{passport.passportSeries}" id="passportSeries"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('passport.passportSeries')}" th:errors="*{passport.passportSeries}">Passport error</td>
-        <tr/>
+            <td>
+                <input type="text" th:field="*{passport.passportSeries}" id="passportSeries"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('passport.passportSeries')}" th:errors="*{passport.passportSeries}">Passport error</strong>
+            </td>
+        </tr>
         <tr>
+            <th scope="row">7</th>
             <td><label for="passportNumber">Passport number: </label></td>
-            <td><input type="text" th:field="*{passport.passportNumber}" id="passportNumber"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('passport.passportNumber')}" th:errors="*{passport.passportNumber}">Passport error</td>
+            <td>
+                <input type="text" th:field="*{passport.passportNumber}" id="passportNumber"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('passport.passportNumber')}" th:errors="*{passport.passportNumber}">Passport error</strong>
+                <strong style="color:red; font-size: 30px"  th:if="${passportError != null}" th:utext="${passportError}">Passport Error</strong>
+            </td>
         </tr>
         <tr>
+            <th scope="row">8</th>
             <td><label for="passportIssueDate">Passport issue date: </label></td>
-            <td><input type="date" th:field="*{passport.issueDate}" id="passportIssueDate"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('passport.issueDate')}" th:errors="*{passport.issueDate}">Passport error</td>
+            <td>
+                <input type="date" th:field="*{passport.issueDate}" id="passportIssueDate"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('passport.issueDate')}" th:errors="*{passport.issueDate}">Passport error</strong>
+            </td>
         </tr>
         <tr>
+            <th scope="row">9</th>
             <td><label for="passportIssueDepartment">Passport issue department: </label></td>
-            <td><input type="text" th:field="*{passport.issueDepartment}" id="passportIssueDepartment"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('passport.issueDepartment')}" th:errors="*{passport.issueDepartment}">Passport error</td>
+            <td>
+                <input type="text" th:field="*{passport.issueDepartment}" id="passportIssueDepartment"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('passport.issueDepartment')}" th:errors="*{passport.issueDepartment}">Passport error</strong>
+            </td>
         </tr>
         <tr>
+            <th scope="row">10</th>
             <td><label for="passportCodDepartment">Passport code department: </label></td>
-            <td><input type="text" th:field="*{passport.codDepartment}" id="passportCodDepartment"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('passport.codDepartment')}" th:errors="*{passport.codDepartment}">Passport error</td>
+            <td>
+                <input type="text" th:field="*{passport.codDepartment}" id="passportCodDepartment"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('passport.codDepartment')}" th:errors="*{passport.codDepartment}">Passport error</strong>
+            </td>
         </tr>
         <tr>
+            <th scope="row">11</th>
             <td><label for="phoneNumber1">Phone number #1: </label></td>
-            <td><input type="text" th:field="*{phones[0].phoneNumber}" id="phoneNumber1"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('phones[0].phoneNumber')}" th:errors="*{phones[0].phoneNumber}">Telephone error</td>
+            <td>
+                <input type="text" th:field="*{phones[0].phoneNumber}" id="phoneNumber1"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('phones[0].phoneNumber')}" th:errors="*{phones[0].phoneNumber}">Telephone error</strong>
+            </td>
         </tr>
         <tr>
+            <th scope="row">12</th>
             <td><label for="phoneNumber2">Phone number #2: </label></td>
-            <td><input type="text" th:field="*{phones[1].phoneNumber}" id="phoneNumber2"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('phones[1].phoneNumber')}" th:errors="*{phones[1].phoneNumber}">Telephone error</td>
+            <td>
+                <input type="text" th:field="*{phones[1].phoneNumber}" id="phoneNumber2"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('phones[1].phoneNumber')}" th:errors="*{phones[1].phoneNumber}">Telephone error</strong>
+            </td>
         </tr>
         <tr>
+            <th scope="row">13</th>
             <td><label for="email1">Email #1: </label></td>
-            <td><input type="text" th:field="*{emails[0].emailAddress}" id="email1"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('emails[0].emailAddress')}" th:errors="*{emails[0].emailAddress}">Email error<td>
+            <td>
+                <input type="text" th:field="*{emails[0].emailAddress}" id="email1"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('emails[0].emailAddress')}" th:errors="*{emails[0].emailAddress}">Email error</strong>
+            </td>
         </tr>
         <tr>
+            <th scope="row">14</th>
             <td><label for="email2">Email #2: </label></td>
-            <td><input type="text" th:field="*{emails[1].emailAddress}" id="email2"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('emails[1].emailAddress')}" th:errors="*{emails[1].emailAddress}">Email error</td>
+            <td>
+                <input type="text" th:field="*{emails[1].emailAddress}" id="email2"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('emails[1].emailAddress')}" th:errors="*{emails[1].emailAddress}">Email error</strong>
+            </td>
         </tr>
         <tr>
-            <td><a>Address #1: </a></td><td></td><td></td>
-        <tr/>
+            <th scope="row" colspan="4">Address #1: </th>
+        </tr>
         <tr>
+            <th scope="row">15</th>
             <td><label for="city">City: </label></td>
-            <td><input type="text" th:field="*{addresses[0].city}" id="city"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('addresses[0].city')}" th:errors="*{addresses[0].city}">City error</td>
-        <tr/>
+            <td>
+                <input type="text" th:field="*{addresses[0].city}" id="city"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('addresses[0].city')}" th:errors="*{addresses[0].city}">City error</strong>
+            </td>
+        </tr>
         <tr>
+            <th scope="row">16</th>
             <td><label for="postCode">Post Code: </label></td>
-            <td><input type="text" th:field="*{addresses[0].postCode}" id="postCode"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('addresses[0].postCode')}" th:errors="*{addresses[0].postCode}">PostCode error</td>
-        <tr/>
+            <td>
+                <input type="text" th:field="*{addresses[0].postCode}" id="postCode"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('addresses[0].postCode')}" th:errors="*{addresses[0].postCode}">PostCode error</strong>
+            </td>
+        </tr>
         <tr>
+            <th scope="row">17</th>
             <td><label for="street">Street Name: </label></td>
-            <td><input type="text" th:field="*{addresses[0].street}" id="street"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('addresses[0].street')}" th:errors="*{addresses[0].street}">Street error</td>
-        <tr/>
+            <td>
+                <input type="text" th:field="*{addresses[0].street}" id="street"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('addresses[0].street')}" th:errors="*{addresses[0].street}">Street error</strong>
+            </td>
+        </tr>
         <tr>
+            <th scope="row">18</th>
             <td><label for="building">Building: </label></td>
-            <td><input type="text" th:field="*{addresses[0].building}" id="building"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('addresses[0].building')}" th:errors="*{addresses[0].building}">Building error</td>
-        <tr/>
+            <td>
+                <input type="text" th:field="*{addresses[0].building}" id="building"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('addresses[0].building')}" th:errors="*{addresses[0].building}">Building error</strong>
+            </td>
+        </tr>
         <tr>
+            <th scope="row">19</th>
             <td><label for="extension">Extension: </label></td>
-            <td><input type="text" th:field="*{addresses[0].extension}" id="extension"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('addresses[0].extension')}" th:errors="*{addresses[0].extension}">Extension error</td>
-        <tr/>
+            <td>
+                <input type="text" th:field="*{addresses[0].extension}" id="extension"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('addresses[0].extension')}" th:errors="*{addresses[0].extension}">Extension error</strong>
+            </td>
+        </tr>
         <tr>
+            <th scope="row">20</th>
             <td><label for="apartment">Apartment: </label></td>
-            <td><input type="text" th:field="*{addresses[0].apartment}" id="apartment"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('addresses[0].apartment')}" th:errors="*{addresses[0].apartment}">Apartment error</td>
+            <td>
+                <input type="text" th:field="*{addresses[0].apartment}" id="apartment"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('addresses[0].apartment')}" th:errors="*{addresses[0].apartment}">Apartment error</strong>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row" colspan="4">Address #2: </th>
         <tr/>
         <tr>
-            <td><a>Address #2: </a></td><td></td><td></td>
-        <tr/>
-        <tr>
+            <th scope="row">21</th>
             <td><label for="city2">City: </label></td>
-            <td><input type="text" th:field="*{addresses[1].city}" id="city2"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('addresses[1].city')}" th:errors="*{addresses[1].city}">City error</td>
-        <tr/>
+            <td>
+                <input type="text" th:field="*{addresses[1].city}" id="city2"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('addresses[1].city')}" th:errors="*{addresses[1].city}">City error</strong>
+            </td>
+        </tr>
         <tr>
+            <th scope="row">22</th>
             <td><label for="postCode2">Post Code: </label></td>
-            <td><input type="text" th:field="*{addresses[1].postCode}" id="postCode2"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('addresses[1].postCode')}" th:errors="*{addresses[1].postCode}">PostCode error</td>
-        <tr/>
+            <td>
+                <input type="text" th:field="*{addresses[1].postCode}" id="postCode2"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('addresses[1].postCode')}" th:errors="*{addresses[1].postCode}">PostCode error</strong>
+            </td>
+        </tr>
         <tr>
+            <th scope="row">23</th>
             <td><label for="street2">Street Name: </label></td>
-            <td><input type="text" th:field="*{addresses[1].street}" id="street2"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('addresses[1].street')}" th:errors="*{addresses[1].street}">Street error</td>
-        <tr/>
+            <td>
+                <input type="text" th:field="*{addresses[1].street}" id="street2"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('addresses[1].street')}" th:errors="*{addresses[1].street}">Street error</strong>
+            </td>
+        </tr>
         <tr>
+            <th scope="row">24</th>
             <td><label for="building2">Building: </label></td>
-            <td><input type="text" th:field="*{addresses[1].building}" id="building2"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('addresses[1].building')}" th:errors="*{addresses[1].building}">Building error</td>
-        <tr/>
+            <td>
+                <input type="text" th:field="*{addresses[1].building}" id="building2"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('addresses[1].building')}" th:errors="*{addresses[1].building}">Building error</strong>
+            </td>
+        </tr>
         <tr>
+            <th scope="row">25</th>
             <td><label for="extension2">Extension: </label></td>
-            <td><input type="text" th:field="*{addresses[1].extension}" id="extension2"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('addresses[1].extension')}" th:errors="*{addresses[1].extension}">Extension error</td>
-        <tr/>
+            <td>
+                <input type="text" th:field="*{addresses[1].extension}" id="extension2"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('addresses[1].extension')}" th:errors="*{addresses[1].extension}">Extension error</strong>
+            </td>
+        </tr>
         <tr>
+            <th scope="row">26</th>
             <td><label for="apartment2">Apartment: </label></td>
-            <td><input type="text" th:field="*{addresses[1].apartment}" id="apartment2"/></td>
-            <td style="color:red" th:if="${#fields.hasErrors('addresses[1].apartment')}" th:errors="*{addresses[1].apartment}">Apartment error</td>
-        <tr/>
+            <td>
+                <input type="text" th:field="*{addresses[1].apartment}" id="apartment2"/>
+                <strong style="color:red" th:if="${#fields.hasErrors('addresses[1].apartment')}" th:errors="*{addresses[1].apartment}">Apartment error</strong>
+            </td>
+        </tr>
         </tbody>
-
         <tbottom>
-            <th><input type="submit" value="UPDATE"/></th>
-            <th></th>
-            <th>
+            <th colspan="2" scope="col">
+                <input type="submit" value="UPDATE"/>
+            </th>
+            <th scope="col">
                 <div style="float: right">
-                    <a href="templates.clients.show.html" th:href="@{/clients/{id}(id=${client.getId()})}">Back Step</a>
+                    <a href="templates.clients.show.html" th:href="@{/clients/{id}(id=${client.getId()})}">BACK TO CLIENT</a>
                 </div>
             </th>
         </tbottom>

@@ -4,24 +4,29 @@
     <meta charset="UTF-8">
     <title>Client</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<table class="table table-dark">
+<table class="table align-middle table-hover table-bordered">
     <thead>
+    <th scope="row">#</th>
     <th scope="col">Client info: </th>
-    <th scope="col">Data: </th></thead>
+    <th scope="col">Data: </th>
+    </thead>
     <tbody>
     <tr>
+        <th scope="row">1</th>
         <td>Id: </td> <td text="" th:text="${client.getId()}">VALUE</td>
     </tr>
     <tr>
+        <th scope="row">2</th>
         <td>Full name: </td>
         <td th:text="${client.getPerson().getSurName() + ' ' + client.getPerson().getGivenName() + ' '
         + client.getPerson().getPatronymic()}">VALUE</td>
     </tr>
     <tr>
+        <th scope="row">3</th>
         <td>Passport: </td>
         <td th:text="${'Id: ' + client.getPassport().getId() +
         ', Series: ' + client.getPassport().getPassportSeries() +
@@ -31,60 +36,59 @@
         ', Code department: ' + client.getPassport().getCodDepartment()}">VALUE</td>
     </tr>
     <tr>
+        <th scope="row">4</th>
         <td>Gender: </td> <td th:text="${client.getPerson().getSex()}">VALUE</td>
     </tr>
     <tr>
+        <th scope="row">5</th>
         <td>Date of birth: </td> <td th:text="${client.getPerson().getDateOfBirth()}">VALUE</td>
     </tr>
-    <tr th:each="phone : ${client.getPhones()}">
+    <tr th:each="phone, iState : ${client.getPhones()}">
+        <th scope="row" th:text="'6.'+${iState.count}">6</th>
         <td>Phone: </td> <td th:text="${phone.getPhoneNumber()}">VALUE</td>
     </tr>
-    <tr th:each="address : ${client.getAddresses()}">
+    <tr th:each="address, iState : ${client.getAddresses()}">
+        <th scope="row" th:text="'7.'+${iState.count}">7</th>
         <td>Address: </td> <td th:text="${address.getPostCode() + ' ' + address.getCity() + ' '
     + address.getStreet() + ' ' + address.getBuilding() + ' '
        + address.getExtension() + ' ' + address.getApartment()}">VALUE</td>
     </tr>
-    <tr th:each="email : ${client.getEmails()}">
+    <tr th:each="email, iState : ${client.getEmails()}">
+        <th scope="row" th:text="'8.'+${iState.count}">8</th>
         <td>Email: </td> <td th:text="${email.getEmailAddress()}">VALUE</td>
     </tr>
-    </tbody>
-    <tbottom>
-        <td>
+    <tr>
+        <td colspan="2">
             <form th:action="@{/clients/{id}/edit(id=${client.getId()})}">
                 <input type="submit" value="EDIT"/>
             </form>
         </td>
         <td>
-            <form th:method="DELETE" th:action="@{/clients/{id}/delete(id=${client.getId()})}">
+            <form style="float: left" th:method="DELETE" th:action="@{/clients/{id}/delete(id=${client.getId()})}">
                 <input type="submit" value="DELETE"/>
             </form>
         </td>
-    </tbottom>
-</table>
-<table class="table table-dark">
-    <thead>
-    <th scope="col">Card Schedule: </th>
-    <th scope="col"></th>
-    </thead>
-    <tbody>
-    <tr th:each="card : ${client.getCards()}">
-                   <td> <a th:href="@{/cards/{id}(id=${card.getId()})}"
-                       th:text="${card.getCardAssociationName() + ' '
+    </tr>
+    <tr>
+        <th scope="col" colspan="3">Card Schedule: </th>
+    </tr>
+    <tr th:each="card, iState : ${client.getCards()}">
+        <th scope="row" th:text="${iState.count}">value</th>
+        <td colspan="2"> <a th:href="@{/cards/{id}(id=${card.getId()})}"
+                            th:text="${card.getCardAssociationName() + ' '
                + card.getCardNumber() + ' ' + card.getExpiryDate()}">card</a> </td><td></td>
     </tr>
-    </tbody>
-    <tbottom>
-        <th scope="col"><a th:href="@{/cards/new/{id}(id=${client.getId()})}">CREATE NEW CARD</a></th>
-        <th scope="col">
+    <tr>
+        <th scope="col" colspan="2"><a th:href="@{/cards/new/{id}(id=${client.getId()})}">CREATE NEW CARD</a></th>
+        <th scope="col" >
             <div style="float: right">
-                <a href="templates.clients.index.html" th:href="@{/clients}">Back Step</a>
+                <a href="templates.clients.index.html" th:href="@{/clients}">Home Page</a>
             </div>
         </th>
-    </tbottom>
+    </tr>
+    </tbody>
 </table>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </body>
 </html>
-
-<!--.format(java.time.format.DateTimeFormatter().ofPattern('yyyy-MM-dd'))-->

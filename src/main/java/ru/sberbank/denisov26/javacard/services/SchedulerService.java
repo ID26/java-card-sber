@@ -18,7 +18,7 @@ public class SchedulerService {
 //    Каждая звездочка в строке cron означает секунды, минуты, часы, дни, месяцы, и дни недели.
 //    Вот более подробно. Сейчас значение означает, что проверка будет проходить каждые 10 секунд,
 //    это сделано для примера, в дальнейшем мы это поменяем. "*/20 * * * * *" "0 0/05 9 * * *"
-    private static final String CRON = "0 0/29 15 * * *";
+    private static final String CRON = "0 0/35 23 * * *";
     private final CardsService cardsService;
     private final EmailAddressService emailAddressService;
     private final EmailServiceImpl emailService;

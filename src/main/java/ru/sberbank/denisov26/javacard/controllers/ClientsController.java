@@ -21,6 +21,8 @@ class ClientsController {
 
     private final ClientsService clientsService;
 
+    private static final String CLIENTS_EDIT = "clients/edit";
+
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("clients", clientsService.findAll());
@@ -60,22 +62,22 @@ class ClientsController {
         } catch (ClientNotFoundException e) {
             System.err.println(e);
         }
-        return "clients/edit";
+        return CLIENTS_EDIT;
     }
 
     @PostMapping("/{id}")
     public String update(@ModelAttribute("client") @Valid Client client, BindingResult bindingResult,
                          @PathVariable("id") Long id, Model model) {
         if (bindingResult.hasErrors()) {
-            return "clients/edit";
+            return CLIENTS_EDIT;
         }
         try {
             clientsService.update(id, client);
         } catch (PassportError passportError) {
             model.addAttribute("passportError", passportError.toString());
-            return "clients/edit";
+            return CLIENTS_EDIT;
         }
-        return "redirect:/clients";
+        return String.format("redirect:/clients/%d", id);
     }
 
     @PostMapping("/{id}/delete")

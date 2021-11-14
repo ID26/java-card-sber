@@ -43,4 +43,6 @@ public class Card {
     @JoinColumn(name = "client_id")
     @ToString.Exclude
     private Client client;
+
+
 }

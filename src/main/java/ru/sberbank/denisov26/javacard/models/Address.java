@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString()
 public class Address {
 
     @Id
@@ -54,5 +54,11 @@ public class Address {
         this.building = building;
         this.extension = extension;
         this.apartment = apartment;
+    }
+
+    @Override
+    public String toString() {
+        return postCode + " " + city + " " + street + " " + building +
+                " " + extension + " " + apartment;
     }
 }

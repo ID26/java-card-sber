@@ -34,37 +34,37 @@ public class SpringRestApplication implements CommandLineRunner {
     }
 
     public void run(String... args) throws Exception {
-        Address lenin = new Address("Rostov-on-Don", "344001", "Lenin", "100", "3", "45");
-        Address dnepr = new Address("Rostov-on-Don", "344002", "Dneprovskiy", "120", "B", "200");
-        Address druzhby = new Address("Leninavan", "344003", "Druzhby", "50", "5", "");
-        Address lenin1 = new Address("Rostov-on-Don", "344001", "Lenin", "100", "3", "45");
-        Address dnepr1 = new Address("Rostov-on-Don", "344002", "Dneprovskiy", "120", "B", "200");
-        Address druzhby1 = new Address("Leninavan", "344003", "Druzhby", "50", "5", "");
+        Address omsk = new Address("Omsk", "344001", "Lenin", "100", "3", "45");
+        Address voronezh = new Address("Voronezh", "344002", "Dneprovskiy", "120", "B", "200");
+        Address krasnodar = new Address("Krasnodar", "344003", "Druzhby", "50", "5", "");
+        Address moscow = new Address("Moscow", "344004", "Lenin", "100", "3", "45");
+        Address rostov = new Address("Rostov-on-Don", "344005", "Dneprovskiy", "120", "B", "200");
+        Address samara = new Address("Samara", "344006", "Druzhby", "50", "5", "");
 
         Person personAlena = new Person("Alena", "Denisova", "Ivanovna", Sex.FEMALE, LocalDate.of(2012, 03, 06));
         Person personNikita = new Person("Nikita", "Denisov", "Ivanovich", Sex.MALE, LocalDate.of(2010, 02, 01));
         Person personKate = new Person("Ekaterina", "Bahareva", "Alexandrovna", Sex.FEMALE, LocalDate.of(2002, 10, 26));
 
         Passport passportAlena = new Passport("0000", "111111",
-                LocalDate.of(2012, 03, 06), "OBD", "714714");
+                LocalDate.of(2012, 03, 06), "OBD", "714711");
         Passport passportNikita = new Passport("1111", "222222",
-                LocalDate.of(2010, 02, 01), "OBD", "714714");
+                LocalDate.of(2010, 02, 01), "OBD", "714712");
         Passport passportKate = new Passport("2222", "333333",
                 LocalDate.of(2002, 10, 26), "OBD", "714714");
 
         Client alena = new Client(personAlena, passportAlena,
                 Arrays.asList(new Phone("12345678901"), new Phone("12345678901")),
-                Arrays.asList(lenin, lenin1),
-                Arrays.asList(new EmailAddress("ivandenisov26@mail.ru"), new EmailAddress("pr0j6ct@yandex.com")),
+                Arrays.asList(omsk, moscow),
+                Arrays.asList(new EmailAddress("ivandenisov26@mail.ru"), new EmailAddress("sigma1978@bk.ru")),
                 Arrays.asList(new Card()));
         Client nikita = new Client(personNikita, passportNikita,
                 Arrays.asList(new Phone("23456789012"), new Phone("23456789012")),
-                Arrays.asList(druzhby, druzhby1),
-                Arrays.asList(new EmailAddress("workpost26@gmail.com"), new EmailAddress("pr0j6ct@yandex.com")),
+                Arrays.asList(krasnodar, samara),
+                Arrays.asList(new EmailAddress("workpost26@gmail.com"), new EmailAddress("2009november2009@gmail.com")),
                 Arrays.asList(new Card()));
         Client ekaterina = new Client(personKate, passportKate,
                 Arrays.asList(new Phone("34567890123"), new Phone("34567890123")),
-                Arrays.asList(dnepr, dnepr1),
+                Arrays.asList(voronezh, rostov),
                 Arrays.asList(new EmailAddress("ivandenisov1979@yandex.ru"), new EmailAddress("pr0j6ct@yandex.com")),
                 Arrays.asList(new Card()));
 
@@ -108,34 +108,6 @@ public class SpringRestApplication implements CommandLineRunner {
         List<Client> clients = Arrays.asList(alena, nikita, ekaterina);
 
         clientsService.saveAll(clients);
-
-//        List<Card> list = cardsService.findAllCardsByExpiryDate(LocalDate.now().plusYears(3));
-//        List<String> messages = new ArrayList<>();
-//        if (!list.isEmpty()) {
-//            list.forEach(card -> {
-//                try {
-//                    String message = String.format("Dear %s. Your card %s number %s has expired. " +
-//                            "The card has been reissued. " +
-//                            "You can pick it up at any time convenient for you at the bank branch.",
-//                            card.getNameOnCard(), card.getCardAssociationName(),card.getCardNumber());
-//
-//
-//                    List<EmailAddress> emailAddresses = emailAddressService.findAllByClientId(card.getClient().getId());
-//                    emailAddresses.forEach(emailAddress -> {
-//                        messages.add(message + " " + emailAddress.getEmailAddress());
-//                    });
-//
-////                    emailService.send(client.getEmail(), "Happy Birthday!", message);
-////                    log.info("Email have been sent. User id: {}, Date: {}", client.getId(), date);
-//                } catch (Exception e) {
-//                    System.out.println("Not found" + e);
-////                    log.error("Email can't be sent.User's id: {}, Error: {}", client.getId(), e.getMessage());
-////                    log.error("Email can't be sent", e);
-//                }
-//            });
-//        }
-//
-//        messages.forEach(System.out::println);
 
     }
 }

@@ -39,12 +39,6 @@ public class CardsService {
 
     @Transactional
     public void update(Long id, Card card) {
-//        try {
-//            Card cardForUpdate = findById(id);
-//            if (cardForUpdate == null) return;
-//        } catch (CardNotFoundException e) {
-//            System.err.println(e);
-//        }
         cardRepository.setCardById(id, card.getCardAssociationName(), card.getCardNumber(),
                 card.getNameOnCard(), card.getBillingAddress(), card.getValidFrom(), card.getExpiryDate(),
                 card.getCardVerificationCode(), card.getDailyWithdrawalLimit(), card.getBalance());

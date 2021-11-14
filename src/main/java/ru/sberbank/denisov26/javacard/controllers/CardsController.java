@@ -21,6 +21,7 @@ import javax.validation.Valid;
 @RequestMapping("cards")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CardsController {
+    private static final String CLIENT_ID = "clientId";
     private final CardsService cardsService;
     private final ClientsService clientsService;
 
@@ -35,7 +36,7 @@ public class CardsController {
             try {
                 Card card = cardsService.findById(id);
                 model.addAttribute("card", card);
-                model.addAttribute("clientId", card.getClient().getId());
+                model.addAttribute(CLIENT_ID, card.getClient().getId());
             } catch (CardNotFoundException e) {
                 System.err.println(e);
             }
@@ -50,15 +51,16 @@ public class CardsController {
             } catch (ClientNotFoundException e) {
                 System.err.println(e);
             }
-            model.addAttribute("clientId", id);
+            model.addAttribute(CLIENT_ID, id);
         return "cards/new";
     }
 
     @PostMapping("/new/{id}")
-    public String create(@PathVariable("id") Long id, @ModelAttribute("card") @Valid Card card,BindingResult bindingResult, Model model) {
+    public String create(@PathVariable("id") Long id, @ModelAttribute("card") @Valid Card card,
+                         BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("clientId", id);
-            return String.format("cards/new");
+            model.addAttribute(CLIENT_ID, id);
+            return "cards/new";
         }
         try {
             card.setClient(clientsService.findById(id));
@@ -82,11 +84,13 @@ public class CardsController {
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable("id") Long id, @ModelAttribute("card") @Valid Card card,BindingResult bindingResult, Model model) {
+    public String update(@PathVariable("id") Long id, @ModelAttribute("card") @Valid Card card,
+                         BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("card", card);
             model.addAttribute("cardId", id);
-            return String.format("cards/edit");
+
+            return "cards/edit";
         }
         try {
             Client client = cardsService.findById(id).getClient();
@@ -99,7 +103,7 @@ public class CardsController {
     }
 
     @PostMapping("/{id}/delete")
-    public String delete(@PathVariable("id") Long id, @RequestParam("clientId") Long clientId) {
+    public String delete(@PathVariable("id") Long id, @RequestParam(CLIENT_ID) Long clientId) {
         System.out.println(clientId);
         cardsService.delete(id);
         return String.format("redirect:/clients/%d", clientId);
