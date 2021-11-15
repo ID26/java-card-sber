@@ -2,6 +2,7 @@ package ru.sberbank.denisov26.javacard.controllers;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +17,15 @@ import ru.sberbank.denisov26.javacard.services.ClientsService;
 import ru.sberbank.denisov26.javacard.utils.CardGenerator;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
+@Slf4j
 @Controller
 @RequestMapping("cards")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CardsController {
     private static final String CLIENT_ID = "clientId";
+    private static final String CARD_EXCEPTION = "Card {} not found!!! Exception: {}, Date: {}";
     private final CardsService cardsService;
     private final ClientsService clientsService;
 
@@ -38,7 +42,7 @@ public class CardsController {
                 model.addAttribute("card", card);
                 model.addAttribute(CLIENT_ID, card.getClient().getId());
             } catch (CardNotFoundException e) {
-                System.err.println(e);
+                log.error(CARD_EXCEPTION, id, e, LocalDateTime.now());
             }
         return "cards/show";
     }
@@ -49,7 +53,7 @@ public class CardsController {
                 Card tempCard = CardGenerator.generateCard(clientsService.findById(id));
                 model.addAttribute("card", tempCard);
             } catch (ClientNotFoundException e) {
-                System.err.println(e);
+                log.error(CARD_EXCEPTION, id, e, LocalDateTime.now());
             }
             model.addAttribute(CLIENT_ID, id);
         return "cards/new";
@@ -65,7 +69,7 @@ public class CardsController {
         try {
             card.setClient(clientsService.findById(id));
         } catch (ClientNotFoundException e) {
-            e.printStackTrace();
+            log.error("Client {} not found!!! Exception: {}, Date: {}", id, e, LocalDateTime.now());
         }
         cardsService.save(card);
         return String.format("redirect:/clients/%d", id);
@@ -78,7 +82,7 @@ public class CardsController {
             model.addAttribute("card", card);
             model.addAttribute("cardId", card.getId());
         } catch (CardNotFoundException e) {
-            System.err.println(e);
+            log.error(CARD_EXCEPTION, id, e, LocalDateTime.now());
         }
         return "cards/edit";
     }
@@ -96,7 +100,7 @@ public class CardsController {
             Client client = cardsService.findById(id).getClient();
             card.setClient(client);
         } catch (CardNotFoundException e) {
-            e.printStackTrace();
+            log.error(CARD_EXCEPTION, id, e, LocalDateTime.now());
         }
         cardsService.update(id, card);
         return String.format("redirect:/cards/%d", id);
@@ -104,7 +108,6 @@ public class CardsController {
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long id, @RequestParam(CLIENT_ID) Long clientId) {
-        System.out.println(clientId);
         cardsService.delete(id);
         return String.format("redirect:/clients/%d", clientId);
     }

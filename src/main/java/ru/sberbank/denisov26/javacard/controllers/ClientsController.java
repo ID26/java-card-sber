@@ -1,11 +1,11 @@
 package ru.sberbank.denisov26.javacard.controllers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import ru.sberbank.denisov26.javacard.exceptions.ClientNotFoundException;
 import ru.sberbank.denisov26.javacard.exceptions.PassportError;
@@ -13,7 +13,9 @@ import ru.sberbank.denisov26.javacard.models.Client;
 import ru.sberbank.denisov26.javacard.services.ClientsService;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
+@Slf4j
 @Controller
 @RequestMapping("clients")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -34,7 +36,7 @@ class ClientsController {
         try {
             model.addAttribute("client", clientsService.findById(id));
         } catch (ClientNotFoundException e) {
-            System.err.println(e);
+            log.error("Client {} not found!!! Exception: {}, Date: {}", id, e, LocalDateTime.now());
         }
         return "clients/show";
     }
@@ -60,7 +62,7 @@ class ClientsController {
         try {
             model.addAttribute("client", clientsService.findById(id));
         } catch (ClientNotFoundException e) {
-            System.err.println(e);
+            log.error("Client {} not found!!! Exception: {}, Date: {}", id, e, LocalDateTime.now());
         }
         return CLIENTS_EDIT;
     }

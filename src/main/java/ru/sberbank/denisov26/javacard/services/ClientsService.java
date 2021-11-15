@@ -1,5 +1,7 @@
 package ru.sberbank.denisov26.javacard.services;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,11 +12,13 @@ import ru.sberbank.denisov26.javacard.models.Passport;
 import ru.sberbank.denisov26.javacard.repository.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.IntStream;
 
+@Slf4j
 @Service
-//@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ClientsService {
     private final ClientRepository clientRepository;
     private final PersonRepository personRepository;
@@ -23,17 +27,6 @@ public class ClientsService {
     private final EmailAddressRepository emailAddressRepository;
     private final PassportRepository passportRepository;
     private final PhoneRepository phoneRepository;
-
-    @Autowired
-    public ClientsService(ClientRepository clientRepository, PersonRepository personRepository, AddressRepository addressRepository, CardRepository cardRepository, EmailAddressRepository emailAddressRepository, PassportRepository passportRepository, PhoneRepository phoneRepository) {
-        this.clientRepository = clientRepository;
-        this.personRepository = personRepository;
-        this.addressRepository = addressRepository;
-        this.cardRepository = cardRepository;
-        this.emailAddressRepository = emailAddressRepository;
-        this.passportRepository = passportRepository;
-        this.phoneRepository = phoneRepository;
-    }
 
     public List<Client> findAllCustomersWithCardExpirationDates(LocalDate date) {
         return clientRepository.findAllByExpiryDate(date);
@@ -108,7 +101,7 @@ public class ClientsService {
                                 client.getCards().get(i).getBalance()));
             }
         } catch (ClientNotFoundException e) {
-            System.err.println(e);
+            log.error("Client {} not found!!! Exception: {}, Date: {}", id, e, LocalDateTime.now());
         }
     }
 

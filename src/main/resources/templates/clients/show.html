@@ -9,15 +9,17 @@
 </head>
 <body>
 <table class="table align-middle table-hover table-bordered">
+    <caption>Show Client</caption>
     <thead>
-    <th scope="row">#</th>
+    <th scope="col">#</th>
     <th scope="col">Client info: </th>
     <th scope="col">Data: </th>
     </thead>
     <tbody>
     <tr>
         <th scope="row">1</th>
-        <td>Id: </td> <td text="" th:text="${client.getId()}">VALUE</td>
+        <td>Id: </td>
+        <td th:text="${client.getId()}">VALUE</td>
     </tr>
     <tr>
         <th scope="row">2</th>

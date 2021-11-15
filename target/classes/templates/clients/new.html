@@ -13,7 +13,7 @@
         <caption>New Client</caption>
         <thead>
         <tr>
-            <th scope="row">#</th>
+            <th scope="col">#</th>
             <th scope="col">Parameter</th>
             <th scope="col">Input field</th>
         </tr>
@@ -75,7 +75,6 @@
             <td>
                 <input type="text" th:field="*{passport.passportNumber}" id="passportNumber"/>
                 <strong style="color:red" th:if="${#fields.hasErrors('passport.passportNumber')}" th:errors="*{passport.passportNumber}">Passport error</strong>
-                <strong style="color:red; font-size: 30px"  th:if="${passportError != null}" th:utext="${passportError}">Passport Error</strong>
             </td>
         </tr>
         <tr>
