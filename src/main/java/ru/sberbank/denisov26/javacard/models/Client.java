@@ -1,8 +1,6 @@
 package ru.sberbank.denisov26.javacard.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -10,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Client {
@@ -32,8 +31,6 @@ public class Client {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)
     @JoinColumn(name = "client_id")
     @Valid
-//    @Singular
-//    @NotEmpty(message = "Input movie list cannot be empty.")
     private List<Phone> phones = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)

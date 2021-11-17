@@ -108,6 +108,5 @@ public class SpringRestApplication implements CommandLineRunner {
         List<Client> clients = Arrays.asList(alena, nikita, ekaterina);
 
         clientsService.saveAll(clients);
-
     }
 }

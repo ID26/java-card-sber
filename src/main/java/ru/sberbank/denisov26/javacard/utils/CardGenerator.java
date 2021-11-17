@@ -32,4 +32,22 @@ public class CardGenerator {
         card.setClient(client);
         return card;
     }
+
+    public static Card reissuedCard(Card card) {
+        Card reissuedCard = new Card();
+
+        reissuedCard.setId(card.getId());
+        reissuedCard.setCardAssociationName(card.getCardAssociationName());
+        reissuedCard.setNameOnCard(card.getNameOnCard());
+        reissuedCard.setCardNumber(card.getCardNumber());
+        reissuedCard.setBillingAddress(card.getBillingAddress());
+        reissuedCard.setCardVerificationCode(String.valueOf(random.nextInt(899) + 100));
+        reissuedCard.setValidFrom(LocalDate.now());
+        reissuedCard.setExpiryDate(reissuedCard.getValidFrom().plusYears(3));
+        reissuedCard.setDailyWithdrawalLimit(card.getDailyWithdrawalLimit());
+        reissuedCard.setBalance(card.getBalance());
+        reissuedCard.setClient(card.getClient());
+
+        return reissuedCard;
+    }
 }

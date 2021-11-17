@@ -48,7 +48,7 @@ public class Card {
     @Positive(message = "Balance can't be negative!")
     private Long balance;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "client_id")
     @ToString.Exclude
     private Client client;

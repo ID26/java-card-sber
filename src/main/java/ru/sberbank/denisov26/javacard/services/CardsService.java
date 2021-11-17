@@ -29,11 +29,9 @@ public class CardsService {
         cardRepository.deleteById(id);
     }
 
-    public List<String> findAllByExpiryDate(LocalDate date){
+    @Transactional
+    public List<Card> findAllByExpiryDate(LocalDate date){
         return cardRepository.findAllByExpiryDate(date);
-    }
-    public List<Card> findAllCardsByExpiryDate(LocalDate date){
-        return cardRepository.findAllCardsByExpiryDate(date);
     }
 
 
@@ -46,5 +44,10 @@ public class CardsService {
 
     public List<Card> findAll() {
         return cardRepository.findAll();
+    }
+
+    @Transactional
+    public void updateAll(List<Card> reissuedCard) {
+        reissuedCard.forEach(card -> update(card.getId(), card));
     }
 }

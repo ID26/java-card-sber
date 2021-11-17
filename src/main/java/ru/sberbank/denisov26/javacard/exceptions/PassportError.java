@@ -1,14 +1,14 @@
 package ru.sberbank.denisov26.javacard.exceptions;
 
 public class PassportError extends Exception {
-    private String messade;
+    private final String message;
     public PassportError(String message) {
         super(message);
-        this.messade = message;
+        this.message = message;
     }
 
     @Override
     public String toString() {
-        return messade;
+        return message;
     }
 }
