@@ -14,19 +14,7 @@ import java.util.List;
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
 
-//    @Modifying
-//    @Query(value = "SELECT email_address, card_number, name_on_card, expiry_date \n" +
-//            "FROM jpa1.email_address INNER JOIN jpa1.card\n" +
-//            "ON jpa1.email_address.client_id = jpa1.card.client_id\n" +
-//            "WHERE jpa1.card.expiry_date = :date AND jpa1.email_address.email_address IS NOT NULL", nativeQuery = true)
-//    List<String> findAllByExpiryDate(@Param("date") LocalDate date);
-
-//    @Modifying
-//    @Query(value = "SELECT * FROM jpa1.card \n" +
-//            "INNER JOIN jpa1.email_address \n" +
-//            "ON jpa1.email_address.client_id = jpa1.card.client_id \n" +
-//            "WHERE jpa1.card.expiry_date = :date AND jpa1.email_address.email_address IS NOT NULL", nativeQuery = true)
-    List<Card> findAllByExpiryDate(/*@Param("date")*/LocalDate localDate);
+    List<Card> findAllByExpiryDate(LocalDate localDate);
 
 
     @Modifying
@@ -38,7 +26,7 @@ public interface CardRepository extends JpaRepository<Card, Long> {
                      String billingAddress, LocalDate validFrom, LocalDate expiryDate,
                      String cardVerificationCode, Long dailyWithdrawalLimit, Long balance);
 
-    @Query("SELECT c FROM Card c ORDER BY balance DESC ")
+    @Query(value = "SELECT * FROM jpa1.Card c ORDER BY balance", nativeQuery = true)
     List<Card> findAllOrderedByBalance();
 
 }
